@@ -33,6 +33,9 @@
 - [0/1 Knapsack](patterns/dp/knapsack-01.md)
 - [Unbounded Knapsack](patterns/dp/knapsack-unbounded.md)
 
+### [Heap / Priority Queue](patterns/heap.md)
+動態取集合極值；當每個 step 後集合會變動又得再次取極值時，比 sort 更划算。
+
 ### [Linked List](patterns/linked-list/README.md)
 操作 singly / doubly linked list；許多題能藉「改寫 node 指標欄位」達到 O(1) 額外空間。
 - [Deep Copy](patterns/linked-list/deep-copy.md)
