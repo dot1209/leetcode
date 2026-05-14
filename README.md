@@ -28,6 +28,11 @@
 按距離分層擴散的搜尋，邊權都相等時保證第一次到達即為最短。
 - [Multi-source BFS](patterns/bfs/multi-source-bfs.md)
 
+### [Dynamic Programming](patterns/dp/README.md)
+把重疊子問題用表記下來，避免重複計算；典型訊號是純 recursion 會 TLE。
+- [0/1 Knapsack](patterns/dp/knapsack-01.md)
+- [Unbounded Knapsack](patterns/dp/knapsack-unbounded.md)
+
 ### [Linked List](patterns/linked-list/README.md)
 操作 singly / doubly linked list；許多題能藉「改寫 node 指標欄位」達到 O(1) 額外空間。
 - [Deep Copy](patterns/linked-list/deep-copy.md)
