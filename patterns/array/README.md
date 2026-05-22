@@ -43,3 +43,4 @@ nums[abs(nums[i]) - 1] = -abs(nums[abs(nums[i]) - 1]);
 
 ## Common Variations
 - [In-place Marker](in-place-marker.md) — 用 array 自身位置當 flag 達成 O(1) extra space
+- [In-place Transform](in-place-transform.md) — 把複雜矩陣變換拆成 transpose / reverse 等 primitive 的組合，每步都能 in-place swap

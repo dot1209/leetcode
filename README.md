@@ -19,6 +19,7 @@
 ### [Array](patterns/array/README.md)
 操作 1D / 2D 陣列；常見 follow-up 是把 O(n) 輔助空間壓到 O(1)，靠陣列自身位置承載資訊。
 - [In-place Marker](patterns/array/in-place-marker.md)
+- [In-place Transform](patterns/array/in-place-transform.md)
 
 ### [Backtracking](patterns/backtracking/README.md)
 列舉解空間的樹狀搜尋，核心是「make choice → recurse → undo」。
