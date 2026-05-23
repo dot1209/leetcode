@@ -41,4 +41,8 @@
 操作 singly / doubly linked list；許多題能藉「改寫 node 指標欄位」達到 O(1) 額外空間。
 - [Deep Copy](patterns/linked-list/deep-copy.md)
 - [In-place Rewiring](patterns/linked-list/in-place-rewiring.md)
+
+### [String](patterns/string/README.md)
+字串為主要輸入、操作集中在字元層級而非 array random access；解析、模擬大數運算、模式比對等。
+- [Simulation](patterns/string/simulation.md)
 <!-- INDEX END -->
