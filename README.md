@@ -42,6 +42,9 @@
 ### [Heap / Priority Queue](patterns/heap.md)
 動態取集合極值；當每個 step 後集合會變動又得再次取極值時，比 sort 更划算。
 
+### [Sliding Window](patterns/sliding-window.md)
+用左右指針框出連續區間並隨掃描滑動,把「枚舉所有 subarray/substring」壓成線性掃描;靠增量維護視窗狀態避免重算。
+
 ### [Linked List](patterns/linked-list/README.md)
 操作 singly / doubly linked list；許多題能藉「改寫 node 指標欄位」達到 O(1) 額外空間。
 - [Deep Copy](patterns/linked-list/deep-copy.md)
