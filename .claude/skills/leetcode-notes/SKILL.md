@@ -34,11 +34,13 @@ Patterns can live in two forms — a single file when small, a folder when they 
 
 ### When to Upgrade a Single File to a Folder
 
-Convert `patterns/foo.md` into `patterns/foo/README.md` + variation files when **any** of these is true:
+The real criterion is **categorizability, not count**: split only when the problems genuinely cluster into 2+ *distinct sub-patterns* (different core technique / loop structure / invariant), so each variation file earns a real identity. A problem count is just a symptom — N near-identical variants of one trick still belong in a single file, while even 2 problems can justify a split when they are truly different categories (e.g. fixed-window vs variable-window). Never split just to hit a number.
 
-- The pattern accumulates 3+ clearly distinct variations
-- The single file exceeds ~300 lines
-- The user explicitly asks to split it
+Once genuine sub-categories exist, upgrade when the split earns its browsing cost — rough signals:
+
+- 3+ clearly distinct variations, or
+- the single file exceeds ~300 lines, or
+- the user explicitly asks to split it.
 
 When upgrading, preserve all existing problem summaries — move each into the appropriate variation file. The standalone `problems/<pattern>/...` files do not move.
 
@@ -49,7 +51,7 @@ When the user describes a solved problem:
 1. **Identify the pattern.** Ask if unclear. Match against existing pattern files first before proposing a new one.
 2. **Identify the variation** (if pattern is a folder). Ask if unclear.
 3. **Read the target pattern/variation file** before editing — new summaries must be consistent with prior summaries in the same file.
-4. **Create the standalone problem file** at `problems/<pattern>/<problem_name>.md` using the Problem File Template.
+4. **Create the standalone problem file** at `problems/<pattern>/<problem_name>.md` using the Problem File Template. If the problem has a genuine follow-up / natural extension, record it in the Follow-ups section (never invent one).
 5. **Append a condensed summary** to the pattern/variation file's `## Problems` section using the Problem Summary Template, linking to the standalone file.
 6. **Update root README.md** if a new pattern or variation file was created.
 
@@ -179,6 +181,9 @@ Explain *why* the complexity is what it is. For example: nested loops that look 
 ## Pitfalls
 Edge cases, off-by-one errors, easy mistakes encountered on this problem.
 
+## Follow-ups
+Include ONLY if the problem has a genuine follow-up or natural extension — an official "Follow-up:" line, or a well-known variation (e.g. a key constraint relaxed). State what the extension is and how it changes the approach (often: which assumption breaks). Do NOT invent one — omit this section entirely if there is no real follow-up.
+
 ## Related Problems
 - [<num>] <name> — same pattern, different twist
 ```
@@ -227,6 +232,7 @@ Always regenerate content **between** `<!-- INDEX START -->` and `<!-- INDEX END
 ## Rules
 
 - **Preserve the user's own wording.** When the user describes their solution/thought process, build the notes around *their* phrasing and mental model (the exact words, analogies, and framing they used). Don't rewrite their explanation into your own voice — they remember their own words best. Polish and structure, but keep their language as the backbone.
+- **Keep the user's own code; never edit their code block.** When the user pastes working code, put *that exact code* in the Solution Code section verbatim (their structure, naming, indexing, comments). Do NOT substitute a cleaner rewrite, and do NOT edit inside their code block — any addition (tidy-up suggestion, bug warning, alternative) goes in a *separate* section outside the block. If you proposed a cleaner version in chat, the notes still follow whichever version the user adopted; they edit their own code. Your job around their block is to add commentary separately and to **flag bugs explicitly** (never silently fix — see the wording-preservation and error-flagging rules).
 - **Explain motivation naturally — no rigid template.** Concept explanations should convey the *motivation* (what it is, why you'd reach for it) as flowing prose. Do NOT stamp fixed bold labels like 「他是什麼 / 為什麼需要他 / 他改變了什麼」 onto every section — that reads stiff and mechanical. Just explain the why in natural language; if the user gave their own description, use theirs.
 - **Point out the user's mistakes — don't silently fix them.** If the user's stated reasoning, complexity, code, or claim is wrong, flag it explicitly and explain the correction *before* writing it into the notes. Never quietly correct an error in the notes without telling them; they need to know they had it wrong so they can re-learn it.
 - **Keep complexity analysis explanatory.** Don't just write `O(n)`. Write *why*.
