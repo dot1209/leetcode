@@ -226,6 +226,9 @@ Always regenerate content **between** `<!-- INDEX START -->` and `<!-- INDEX END
 
 ## Rules
 
+- **Preserve the user's own wording.** When the user describes their solution/thought process, build the notes around *their* phrasing and mental model (the exact words, analogies, and framing they used). Don't rewrite their explanation into your own voice — they remember their own words best. Polish and structure, but keep their language as the backbone.
+- **Explain motivation naturally — no rigid template.** Concept explanations should convey the *motivation* (what it is, why you'd reach for it) as flowing prose. Do NOT stamp fixed bold labels like 「他是什麼 / 為什麼需要他 / 他改變了什麼」 onto every section — that reads stiff and mechanical. Just explain the why in natural language; if the user gave their own description, use theirs.
+- **Point out the user's mistakes — don't silently fix them.** If the user's stated reasoning, complexity, code, or claim is wrong, flag it explicitly and explain the correction *before* writing it into the notes. Never quietly correct an error in the notes without telling them; they need to know they had it wrong so they can re-learn it.
 - **Keep complexity analysis explanatory.** Don't just write `O(n)`. Write *why*.
 - **Default code language: C++ or Python**, matching the user's stated preference. Ask if ambiguous.
 - **No Chinese in code comments.** Inside any code block (templates, solution code, snippets), comments must be in English regardless of the surrounding prose language. Markdown prose around the code can stay Chinese; only the `//` / `#` lines need to be English.
