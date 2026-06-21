@@ -34,6 +34,7 @@
 - [0/1 Knapsack](patterns/dp/knapsack-01.md)
 - [Unbounded Knapsack](patterns/dp/knapsack-unbounded.md)
 - [String Partition](patterns/dp/string-partition.md)
+- [Two-Sequence](patterns/dp/two-sequence.md)
 
 ### [Greedy + Stack](patterns/greedy-stack.md)
 用 stack 暫存已讀元素，貪心決定何時吐出，建構字典序最佳的輸出；關鍵在 flush 條件——比較 top 與剩餘未讀部分的極值。
