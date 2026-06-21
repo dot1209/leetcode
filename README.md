@@ -35,6 +35,9 @@
 - [Unbounded Knapsack](patterns/dp/knapsack-unbounded.md)
 - [String Partition](patterns/dp/string-partition.md)
 
+### [Greedy + Stack](patterns/greedy-stack.md)
+用 stack 暫存已讀元素，貪心決定何時吐出，建構字典序最佳的輸出；關鍵在 flush 條件——比較 top 與剩餘未讀部分的極值。
+
 ### [Heap / Priority Queue](patterns/heap.md)
 動態取集合極值；當每個 step 後集合會變動又得再次取極值時，比 sort 更划算。
 
