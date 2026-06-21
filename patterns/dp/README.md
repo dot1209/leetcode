@@ -33,3 +33,4 @@
 ## Common Variations
 - [0/1 Knapsack](knapsack-01.md) — 每個物品**選或不選**，求 feasibility / counting / max value 等
 - [Unbounded Knapsack](knapsack-unbounded.md) — 每個物品**可重複選任意次**（Coin Change 系列）
+- [String Partition](string-partition.md) — 把字串切成段，`dp[i]` 是前綴 `s[0..i)` 能否 / 有幾種 / 最少幾段達成條件

@@ -33,6 +33,7 @@
 把重疊子問題用表記下來，避免重複計算；典型訊號是純 recursion 會 TLE。
 - [0/1 Knapsack](patterns/dp/knapsack-01.md)
 - [Unbounded Knapsack](patterns/dp/knapsack-unbounded.md)
+- [String Partition](patterns/dp/string-partition.md)
 
 ### [Heap / Priority Queue](patterns/heap.md)
 動態取集合極值；當每個 step 後集合會變動又得再次取極值時，比 sort 更划算。
