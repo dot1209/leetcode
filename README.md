@@ -36,6 +36,12 @@
 - [String Partition](patterns/dp/string-partition.md)
 - [Two-Sequence](patterns/dp/two-sequence.md)
 
+### [Frequency Counting](patterns/frequency-counting.md)
+先掃一遍把每個元素出現幾次記下來，再從計數表推答案；最常見形式是 bottleneck min——用一袋字元重複拼目標字，能拼幾組卡在最稀缺的字母上。
+
+### [Greedy](patterns/greedy.md)
+每步做當下最佳選擇、不回頭，靠 exchange argument 證明 local optimal → global optimal；最常見形式是 sort 後依序貪心取用。
+
 ### [Greedy + Stack](patterns/greedy-stack.md)
 用 stack 暫存已讀元素，貪心決定何時吐出，建構字典序最佳的輸出；關鍵在 flush 條件——比較 top 與剩餘未讀部分的極值。
 
