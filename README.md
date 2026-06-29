@@ -59,4 +59,5 @@
 ### [String](patterns/string/README.md)
 字串為主要輸入、操作集中在字元層級而非 array random access；解析、模擬大數運算、模式比對等。
 - [Simulation](patterns/string/simulation.md)
+- [Pattern Matching (KMP)](patterns/string/pattern-matching.md)
 <!-- INDEX END -->

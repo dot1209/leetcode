@@ -32,3 +32,4 @@ return pos == string::npos ? "0" : s.substr(pos);
 
 ## Common Variations
 - [Simulation](simulation.md) — 字串上模擬筆算大數運算（multiply / add / plus one / atoi 等），核心是位數對齊與進位處理
+- [Pattern Matching (KMP)](pattern-matching.md) — 在大字串裡找小字串的 substring search，用 failure function 讓大字串指標永不後退，達到 O(N+M)
