@@ -89,3 +89,9 @@ for (int r = 0; r < (int)s.size(); r++) {
 - **Trigger:** 固定大小 `k` 視窗,回報每個位置的**最大值** → 視窗狀態是「極值」而非「計數」
 - **Insight:** 視窗狀態的維護換成 **monotonic decreasing deque(存 index)**:後端淘汰比新元素小的舊值,`dq.front()` 即視窗 max;index 滑出左界就前端 pop。和本檔其餘題的 counter 是同一精神(增量維護摘要)、不同結構
 - **Pitfall:** deque 存 index 不存值(要判過期);普通 stack 不夠(max 在前端,需兩端操作 → deque)
+
+### [[1358] Number of Substrings Containing All Three Characters](../problems/sliding-window/number_of_substrings_containing_all_three.md)
+**Complexity:** Time O(N), Space O(1)
+- **Trigger:** 字串只含 a/b/c,**數**有幾個 substring 同時含齊三種 → sliding window 的計數變體(求個數,非求最長/最短)
+- **Insight:** 固定右端點 r、數「以 r 結尾的合法起點」個數再加總;兩解皆可——縮放視窗 `res += l`(`l` 是 `[0,l)` 開區間右界),或記最後出現位置 `res += min(last)+1`(`min(last)=L` 是 `[0,L]` 閉區間);兩者 `l == L+1`,差別只是開/閉區間慣例
+- **Pitfall:** 開區間 `l` 天生沒 +1,別寫成 `l+1`;`int last[3] = {-1}` 只設成 `{-1,0,0}` 而非全 -1(aggregate 初始化不廣播)
