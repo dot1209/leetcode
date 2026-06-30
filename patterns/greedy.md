@@ -9,6 +9,7 @@ Greedy 是「每一步都做當下看起來最好的選擇、做完不回頭」�
 - 排序後有明顯且固定的取用順序：最便宜先買、最短先做、最早結束先排
 - 能用 exchange argument 說服自己：先取最 X 的那個，不會比別的順序差
 - 訊號詞：`maximum number of ...`、`in a budget`、`as many as possible`、`minimum number of ...`
+- **另一種形式（不靠 sort）——可行性判定**：當操作可任意次做、又是 **monotone**（值只增不減）時，碰了「會讓結果超過 target」的元素就回不去 → greedy 變成「先 filter 掉這些 poison，再檢查剩下的能不能覆蓋 target」。這型是 yes/no 而非最佳化，也不需要 sort（見 LC1899）
 - **反例（這時別用 greedy）**：選擇之間互相牽連——取了 A 就不能取 B、或取某元素會改變後面元素的權重 → 通常要 DP。最經典的反例是 **0/1 knapsack**：價值/重量不成單調比例時，貪心拿 CP 值最高的會錯，必須 DP。
 
 ## Typical Complexity
@@ -50,3 +51,9 @@ return count;
 - **Trigger:** 兩兩配對並「最小化最大配對和」(minimize the maximum) → sort 後頭尾相接
 - **Insight:** 最小配最大；exchange argument——若最優解沒把 min 跟 max 配在一起，交換成 `(min,max)`+`(x,y)` 後兩個和都 ≤ 原本的 `max+y`，max 不增
 - **Pitfall:** 別只憑直覺配頭尾就交卷，正確性要靠 exchange argument；回傳的是配對和的 max 不是總和
+
+### [[1899] Merge Triplets to Form Target Triplet](../problems/greedy/merge_triplets_to_form_target.md)
+**Complexity:** Time O(N), Space O(1)
+- **Trigger:** 操作「挑兩個取 element-wise max」可做任意多次，問能否拼出 target → 不是最佳化，是**可行性判定**
+- **Insight:** merge = element-wise max，所以可達結果 = 某 subset 的 max → 別模擬過程；monotone 讓 overshoot 永久不可逆 → 先 filter 掉任一軸超標的，再檢查三軸各有人 `== target`（`x && y && z`）
+- **Pitfall:** 想用 `cur` 累加器模擬整個 merge 流程會死（`cur=triplets[0]` 可能本身超標又救不回）；正解是「描述可達集合」而非模擬，sort 在這題無用
