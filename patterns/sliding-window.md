@@ -83,3 +83,9 @@ for (int r = 0; r < (int)s.size(); r++) {
 - **Trigger:** 找所有起點,使子字串剛好是一組**等長** words 的任意串接 → 以「詞」為單位的 fixed window
 - **Insight:** 起點按 `start mod word_len` 分成 word_len 條獨立「詞格線」各跑一次;`formed` 計數同 LC76,只是 key 從字元換成詞
 - **Pitfall:** 每個 offset 要重置 `window`/`formed`/`l`(共用會跨格線污染,且 `len≥10` 才暴露);時間別漏算每步 substr 的 O(word_len) 因子
+
+### [[239] Sliding Window Maximum](../problems/sliding-window/sliding_window_maximum.md)
+**Complexity:** Time O(N), Space O(K)
+- **Trigger:** 固定大小 `k` 視窗,回報每個位置的**最大值** → 視窗狀態是「極值」而非「計數」
+- **Insight:** 視窗狀態的維護換成 **monotonic decreasing deque(存 index)**:後端淘汰比新元素小的舊值,`dq.front()` 即視窗 max;index 滑出左界就前端 pop。和本檔其餘題的 counter 是同一精神(增量維護摘要)、不同結構
+- **Pitfall:** deque 存 index 不存值(要判過期);普通 stack 不夠(max 在前端,需兩端操作 → deque)
