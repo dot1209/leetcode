@@ -70,5 +70,7 @@ public:
   - **最少 merge 次數**：merge `m` 個 triplet 需 `m−1` 次操作 → 找「覆蓋三軸的最小 triplet 子集」。因為只有 3 軸，是超小的 set cover：先看有沒有單一 triplet 已 `== target`（1 個、0 次操作），再看 2 個能否覆蓋三軸，最後才 3 個 → 上限 3 個 triplet / 2 次操作。骨架不變，只是判定變最佳化。
 
 ## Related Problems
-- [1833] Maximum Ice Cream Bars — 同屬 Greedy，但是「sort 後依預算逐一取」的**最佳化**型；本題是無 sort 的「filter + 覆蓋判定」可行性型。
-- [1877] Minimize Maximum Pair Sum — Greedy 的「sort 後頭尾配對」minimax 型；同樣不是本題這種可行性判定，凸顯 Greedy 底下有好幾種不同操作型態。
+- [55] Jump Game — 同樣是 greedy 的**可行性判定**（能不能到終點），yes/no 而非最佳化；只是它維護「最遠可達 index」，本題用 filter + 覆蓋。
+- [45] Jump Game II — 上一題的最佳化版（最少跳幾次到終點），正好對應本題 follow-up 的「最少 merge 次數」——feasibility 升級成 optimization 的經典一對。
+- [780] Reaching Points — monotone 操作（座標只增）下的 reachability，解法是「往回推、描述可達集合」而非正向模擬，跟本題「別模擬流程、認清可達 = 某 subset 的 max」是同一個教訓。
+- （筆記內對照）[1833] Maximum Ice Cream Bars、[1877] Minimize Maximum Pair Sum — Greedy 的 sort-and-take／配對型，跟本題的 filter-覆蓋型是不同操作型態。
