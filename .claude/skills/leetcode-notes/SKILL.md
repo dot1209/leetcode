@@ -185,7 +185,7 @@ Edge cases, off-by-one errors, easy mistakes encountered on this problem.
 Include ONLY if the problem has a genuine follow-up or natural extension — an official "Follow-up:" line, or a well-known variation (e.g. a key constraint relaxed). State what the extension is and how it changes the approach (often: which assumption breaks). Do NOT invent one — omit this section entirely if there is no real follow-up.
 
 ## Related Problems
-- [<num>] <name> — same pattern, different twist
+- [<num>] <name> — same pattern or core idea, different twist (need NOT already be in the notes — include other well-known/relevant problems too, each with a 1-line "why related")
 ```
 
 ## README Maintenance
@@ -240,7 +240,7 @@ Always regenerate content **between** `<!-- INDEX START -->` and `<!-- INDEX END
 - **No Chinese in code comments.** Inside any code block (templates, solution code, snippets), comments must be in English regardless of the surrounding prose language. Markdown prose around the code can stay Chinese; only the `//` / `#` lines need to be English.
 - **Pattern-level insights > problem-level details.** When the user revisits notes, the pattern/variation file's `When to Use` and `Typical Complexity` sections should be the most polished part. Standalone problem files are reference material.
 - **Pattern files hold summaries, not full write-ups.** Each problem entry in a pattern/variation file is a 3-bullet digest (Trigger / Insight / Pitfall) with a link to the standalone problem file.
-- **Don't invent problems.** Only add entries the user explicitly mentions solving.
+- **Don't invent problems.** Only create problem *entries* (a standalone file + a `## Problems` summary) for problems the user explicitly mentions solving. This does NOT restrict `## Related Problems` pointers — those may link any genuinely related problem, noted or not (prefer the most relevant, with a 1-line why).
 - **Ask before creating a new pattern.** A new pattern is a commitment — confirm it's not just a variation of an existing one.
 - **Ask before upgrading a file to a folder.** This is a structural change — confirm with the user.
 - **Always update the root README index** after any structural change.
