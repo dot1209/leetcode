@@ -10,6 +10,7 @@ Frequency counting 的核心動作只有一個：**先掃一遍把每個元素�
 - 問題只關心**每個元素出現幾次**，不關心它們的順序或位置 → 順序資訊可以直接丟掉
 - 要判斷兩個集合「組成是否相同」（anagram）、或一堆字元「能否湊出 / 湊幾組」目標
 - 訊號詞：`how many times`、`can construct / form`、`anagram`、`maximum number of "<word>"`、`first unique`、`appears more than ...`
+- 只在乎「有**幾種**不同的值」而非哪個值 → 退化成 **count distinct**：用 presence set / bitset 標記出現過的元素，再數 key 的個數（如 [2357]）
 - 值域有限（小寫字母、ASCII、固定範圍整數）特別適合——用陣列當計數表就好
 - **bottleneck 形式的訊號**：要用一袋字元重複拼出某個固定 pattern，且 pattern 內字母有重複 → 答案是 `min(have / need)`
 
@@ -47,3 +48,9 @@ for (char c : s) freq[c - 'a']++;
 - **Trigger:** 用 `text` 裡的字元重複拼 `balloon`，問最多拼幾個 → 經典 bottleneck min
 - **Insight:** 數出每個字母擁有量，答案 = `min(freq[c] / need[c])`，卡在最稀缺的字母；`l`、`o` 需要 2 份所以要先除以 2
 - **Pitfall:** `l`、`o` 忘了除以 2 會高估；`b`、`a`、`n` 的 `/1` 是 no-op（可省，留著無害）
+
+### [[2357] Make Array Zero by Subtracting Equal Amounts](../problems/frequency-counting/make_array_zero.md)
+**Complexity:** Time O(n), Space O(1)（bitset 解；原本的 sort 解是 O(n log n)）
+- **Trigger:** 只在乎有幾種不同的非零值、不在乎順序 → count distinct
+- **Insight:** 每次操作剛好消掉「一種」最小的非零值，所以答案 = 相異非零值的個數；用 set / bitset 直接數 distinct 即可
+- **Pitfall:** 0 不算一次操作要排除；答案跟「數值大小」無關只跟「有幾種」有關；值域小(0..100)時 bitset 最優(O(n)/O(1) 又不動原陣列)
