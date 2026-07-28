@@ -54,3 +54,9 @@ for (char c : s) freq[c - 'a']++;
 - **Trigger:** 只在乎有幾種不同的非零值、不在乎順序 → count distinct
 - **Insight:** 每次操作剛好消掉「一種」最小的非零值，所以答案 = 相異非零值的個數；用 set / bitset 直接數 distinct 即可
 - **Pitfall:** 0 不算一次操作要排除；答案跟「數值大小」無關只跟「有幾種」有關；值域小(0..100)時 bitset 最優(O(n)/O(1) 又不動原陣列)
+
+### [[3517] Smallest Palindromic Rearrangement I](../problems/frequency-counting/smallest_palindrome.md)
+**Complexity:** Time O(n), Space O(n)
+- **Trigger:** 回文重排成字典序最小 → 只在乎每個字母有幾個 → 建 freq 表推結構
+- **Insight:** 每字母取一半、`a→z` 升序排成前半段(字典序最小），奇數字母放正中間，後半段鏡射；回文保證頂多一個奇數字母
+- **Pitfall:** `reserve` 只改 capacity 不改 size（要用 index 寫先 `resize`)；space 是 O(n) 不是 O(1)（`half`/`rev` 隨 n 成長）；SSO 是 library 技巧、非 compiler optimization
