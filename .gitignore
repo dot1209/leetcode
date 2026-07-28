@@ -1,0 +1,9 @@
+# Editor / IDE settings (machine-specific, e.g. absolute compilerPath)
+.vscode/
+
+# C++ build artifacts (from compiling snippets locally)
+*.exe
+*.o
+*.obj
+*.out
+a.out
