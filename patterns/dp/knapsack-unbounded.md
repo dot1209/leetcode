@@ -94,11 +94,11 @@ for (int coin : coins)         // <- outer loop
 - **包不包含「選 0 次」**：題目允許不選某物品時，base case `dp[0] = 1`（counting）或 `dp[0] = 0`（min count）就涵蓋了。不要再額外處理
 - **`Word Break` 那種「順序敏感」題用 permutation 風格**：它要的是「拼接序列」，不是「用了哪些詞」
 
-## Common Problems（尚未進筆記）
-- [322] Coin Change — min count
-- [518] Coin Change II — counting combinations
-- [377] Combination Sum IV — counting permutations（外層內層要反過來）
-- [139] Word Break — feasibility，可以看成 unbounded 的字串版
+## Common Problems
+- [322] Coin Change — min count（尚未進筆記）
+- [518] Coin Change II — counting combinations（尚未進筆記）
+- [377] Combination Sum IV — counting permutations（外層內層要反過來；尚未進筆記）
+- [[139] Word Break](../../problems/dp/word_break.md) — feasibility，可以看成 unbounded 的字串版（已進筆記，主歸 [String Partition](string-partition.md)）
 
 ---
 
