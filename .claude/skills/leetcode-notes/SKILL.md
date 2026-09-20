@@ -10,27 +10,27 @@ Maintain a pattern-organized LeetCode notes repository. Notes are split between 
 ## Repo Structure
 
 ```
-leetcode-notes/
+leetcode/
 ├── README.md                           # Auto-maintained index (see "README Maintenance")
 ├── patterns/
-│   ├── monotonic-stack.md              # Single-file pattern (no variations yet)
-│   ├── sliding-window/                 # Folder pattern (has variations)
-│   │   ├── README.md                   # General pattern intro
-│   │   ├── fixed-window.md
-│   │   ├── variable-window.md
-│   │   └── window-with-state.md
-│   └── backtracking/
-│       ├── README.md
-│       └── grid-backtracking.md
-├── problems/                           # Standalone problem files, grouped by pattern
-│   ├── backtracking/
-│   │   └── word_search.md
-│   └── sliding-window/
-│       └── longest_substring_without_repeating.md
-└── templates/                          # Optional: standalone code templates
+│   ├── sliding-window.md               # Single-file pattern (no variations yet)
+│   ├── monotonic-stack.md
+│   └── dp/                             # Folder pattern (has variations)
+│       ├── README.md                   # General pattern intro + Common Variations list
+│       ├── knapsack-01.md
+│       ├── string-partition.md
+│       └── two-sequence.md
+└── problems/                           # Standalone problem files, grouped by pattern
+    ├── dp/
+    │   ├── partition_equal_subset_sum.md
+    │   └── word_break.md
+    └── sliding-window/
+        └── minimum_window_substring.md
 ```
 
-Patterns can live in two forms — a single file when small, a folder when they have variations. Problems are always standalone files under `problems/<pattern>/<problem_name>.md` (snake_case filename, no LC number prefix).
+The tree is an illustrative excerpt, not an inventory — always list `patterns/` to see what really exists before matching a problem to a pattern.
+
+Patterns can live in two forms — a single file when small, a folder when they have variations. Problems are always standalone files under `problems/<pattern>/<problem_name>.md` (snake_case filename, no LC number prefix). `<pattern>` is the pattern's file/folder name (`dp`, `sliding-window`), never the variation name — a problem file does not move when its pattern is later split into variations.
 
 ### When to Upgrade a Single File to a Folder
 
@@ -163,16 +163,21 @@ Free-form sections are for *pattern-level* insight only. Anything about a single
 Lives inside a pattern or variation file's `## Problems` section. Keep it tight — this is a digest, not the full write-up.
 
 ```markdown
-### [[<number>] <Problem Name>](../../problems/<pattern>/<problem_name>.md)
+### [[<number>] <Problem Name>](<path-to-problem-file>)
 **Complexity:** Time O(...), Space O(...)
 - **Trigger:** 1 line — what in the problem pointed here
 - **Insight:** 1 line — the key idea
 - **Pitfall:** 1 line — the easiest mistake
 ```
 
-The link path is relative from the pattern/variation file to the standalone problem file:
-- From `patterns/<name>.md` → `problems/<pattern>/<problem_name>.md`
-- From `patterns/<name>/<variation>.md` → `../../problems/<pattern>/<problem_name>.md`
+Link paths are relative to the file that contains the link, so the depth differs by file type:
+
+| Summary lives in | Link to the problem file |
+|---|---|
+| `patterns/<name>.md` (single-file) | `../problems/<pattern>/<problem_name>.md` |
+| `patterns/<name>/<variation>.md` | `../../problems/<pattern>/<problem_name>.md` |
+
+The back-link in the problem file's `**Pattern:**` line always starts with `../../patterns/` — `../../patterns/<name>.md` or `../../patterns/<name>/<variation>.md`. It must point at the file that actually holds this problem's summary.
 
 ## Problem File Template
 
@@ -226,7 +231,7 @@ The root `README.md` is an auto-maintained index. Whenever a pattern file or var
 
 ### Procedure
 
-1. Scan `patterns/` directory.
+1. Scan `patterns/` directory. Order entries **alphabetically by their name under `patterns/`** (`dp` sorts as "dp" even though its title is "Dynamic Programming"; single files and folders are interleaved, not grouped). Variations inside a folder are alphabetical by filename too.
 2. For each entry:
    - If it's a single `.md` file → list as a single pattern link.
    - If it's a folder → list the folder's `README.md` as the main link, then list its variation `.md` files as nested bullets.
@@ -243,23 +248,34 @@ The root `README.md` is an auto-maintained index. Whenever a pattern file or var
 <!-- INDEX START -->
 ## Patterns
 
+### [Monotonic Stack](patterns/monotonic-stack.md)
+維護單調性的 stack，用於 next greater/smaller 類問題。
+
 ### [Sliding Window](patterns/sliding-window/README.md)
 維護一個移動的 window，常用於 substring/subarray 問題。
 - [Fixed Window](patterns/sliding-window/fixed-window.md)
 - [Variable Window](patterns/sliding-window/variable-window.md)
-- [Window with State](patterns/sliding-window/window-with-state.md)
 
 ### [Two Pointers](patterns/two-pointers/README.md)
 用兩個指針掃過 array/string，常見於 sorted 結構。
 - [Opposite Direction](patterns/two-pointers/opposite-direction.md)
 - [Same Direction](patterns/two-pointers/same-direction.md)
-
-### [Monotonic Stack](patterns/monotonic-stack.md)
-維護單調性的 stack，用於 next greater/smaller 類問題。
 <!-- INDEX END -->
 ```
 
-Always regenerate content **between** `<!-- INDEX START -->` and `<!-- INDEX END -->` markers. Never touch content outside them.
+Always regenerate content **between** `<!-- INDEX START -->` and `<!-- INDEX END -->` markers; a regeneration never touches content outside them. The prose outside the markers (e.g. the 結構 section) does describe this skill's conventions, though — when a skill change makes it stale, tell the user and fix it as its own separate edit rather than leaving it to contradict the skill.
+
+## Committing
+
+- **Commit only when the user asks.** Run `git status` first: uncommitted work that this session did not create (e.g. a note left over from an earlier session) gets its own commit or is left alone — never fold it into yours.
+- **One scope per commit.** A new problem note (problem file + its summary + any README index hunk) is one commit. Skill changes, bulk reformatting and structural moves are each their own commit — don't bundle them with a note or with each other.
+- **Message format** (matches the repo history):
+  - `doc: add <problem name> (<pattern>: <key insight>)` — a new note
+  - `doc: add <pattern> pattern (<first problem>)` — a new pattern / variation
+  - `doc: <what changed>` — edits to existing notes
+  - `chore(skill): <what changed>` — this skill; `chore: ...` — repo config
+  - Add a body only when the *why* isn't obvious from the subject.
+- **No AI attribution.** Do not append `Co-Authored-By: Claude ...` trailers or "Generated with" links to commit messages in this repo.
 
 ## Rules
 
@@ -271,7 +287,8 @@ Always regenerate content **between** `<!-- INDEX START -->` and `<!-- INDEX END
 - **Record alternative solutions worth learning — not only faster ones.** When a problem has a second approach that teaches a *distinct, transferable technique* (a different paradigm or data structure — iterative bitmask vs. recursive backtracking, math/formula vs. simulation, heap vs. sort), capture it as its own labeled block in the `## Solution Code` section, each with a one-line note on *what technique it teaches* and *what it trades* (time / space / clarity). This is broader than the optimization rule: an alternative earns its place even at the *same* complexity when the technique is worth owning. Discipline mirrors Follow-ups: only genuinely instructive alternatives — never pad with a cosmetic rewrite of the same idea, and don't fabricate one. If the user supplied several solutions, keep each **verbatim**; if you're adding one the user didn't write, flag it in chat first and label it clearly as a supplementary alternative — the user's own solution stays the primary block.
 - **Keep complexity analysis explanatory.** Don't just write `O(n)`. Write *why*.
 - **Default code language: C++ or Python**, matching the user's stated preference. Ask if ambiguous.
-- **No Chinese in code comments.** Inside any code block (templates, solution code, snippets), comments must be in English regardless of the surrounding prose language. Markdown prose around the code can stay Chinese; only the `//` / `#` lines need to be English.
+- **No Chinese in code comments.** Inside any code block *you* write (templates, alternatives, snippets, a solution you typed up from the user's description), comments must be in English regardless of the surrounding prose language. Markdown prose around the code can stay Chinese; only the `//` / `#` lines need to be English. **Precedence:** the verbatim rule wins — if the user's pasted code already contains Chinese comments, keep them exactly as pasted and don't translate. Fenced blocks with no language tag that are used as diagrams / set notation rather than code are not covered by this rule.
+- **Prose style: 繁體中文 with full-width punctuation.** Chinese sentences use `，` `。` `；` `：` `（ ）` `「 」` — never half-width `,` `;` `:` `( )` glued to Chinese text. Technical terms, identifiers, complexity expressions (`O(n)`, `dp[i-1][j]`) and the template's own headings / bold labels (`**Time:**`, `**Trigger:**`) stay English and half-width. When appending to an existing file, match its punctuation.
 - **Pattern-level insights > problem-level details.** When the user revisits notes, the pattern/variation file's `When to Use`, `Typical Complexity` and free-form insight sections should be the most polished part. Standalone problem files are reference material.
 - **Pattern files hold summaries, not full write-ups.** Each problem entry in a pattern/variation file is a 3-bullet digest (Trigger / Insight / Pitfall) with a link to the standalone problem file.
 - **Don't invent problems.** Only create problem *entries* (a standalone file + a `## Problems` summary) for problems the user explicitly mentions solving. This does NOT restrict `## Related Problems` pointers — those may link any genuinely related problem, noted or not (prefer the most relevant, with a 1-line why).
