@@ -20,25 +20,25 @@ LC 73 是這套骨架最典型的例子：邊界 row 0 / col 0 被拿去當其�
 
 ## Template Code
 ```cpp
-// 第一階段：snapshot 邊界
-bool flag1 = /* 邊界原本狀態 */;
-bool flag2 = /* 另一個邊界 */;
+// Phase 1: snapshot the boundary
+bool flag1 = /* original state of the boundary */;
+bool flag2 = /* the other boundary */;
 
-// 第二階段：用邊界做 marker
+// Phase 2: use the boundary as markers
 for (/* interior */) {
     if (/* condition */) {
         mark(boundary);
     }
 }
 
-// 第三階段：依 marker 處理 interior
+// Phase 3: process the interior according to the markers
 for (/* interior */) {
     if (boundary_is_marked) {
         modify(interior);
     }
 }
 
-// 第四階段：根據 snapshot 修邊界
+// Phase 4: fix up the boundary from the snapshot
 if (flag1) zero_boundary1();
 if (flag2) zero_boundary2();
 ```

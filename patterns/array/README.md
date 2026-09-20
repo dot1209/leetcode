@@ -37,7 +37,7 @@ for (int read = 0; read < n; read++) {
 
 ### 3. 用 index 承載資訊（marker / sentinel）
 ```cpp
-// 用負號表示「值 i 已出現過」
+// a negative sign marks "value i has been seen"
 nums[abs(nums[i]) - 1] = -abs(nums[abs(nums[i]) - 1]);
 ```
 

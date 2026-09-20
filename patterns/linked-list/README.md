@@ -14,13 +14,13 @@ Linked list 題的核心觀察：每個 node 有「**可寫的指標欄位**」�
 
 ## Template Code
 ```cpp
-// dummy head：避免處理 head 變動的特例
+// dummy head: no special case when the head itself changes
 ListNode dummy(0);
 dummy.next = head;
 ListNode* prev = &dummy;
 ListNode* cur = head;
 while (cur != nullptr) {
-    // ... 操作 prev, cur, cur->next
+    // ... operate on prev, cur, cur->next
     prev = cur;
     cur = cur->next;
 }

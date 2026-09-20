@@ -34,11 +34,11 @@
 
 ### 1D rolling — counting ways (LC 518 Coin Change II 風格)
 ```cpp
-// 從 coins 中（可重複）湊出 amount 的方案數
+// number of ways to make amount from coins (unlimited reuse)
 vector<int> dp(amount + 1, 0);
 dp[0] = 1;
 for (int coin : coins) {
-    for (int w = coin; w <= amount; w++) {   // 正向掃！
+    for (int w = coin; w <= amount; w++) {   // iterate forwards!
         dp[w] += dp[w - coin];
     }
 }
@@ -47,8 +47,8 @@ return dp[amount];
 
 ### 1D rolling — min count (LC 322 Coin Change 風格)
 ```cpp
-// 用 coins 湊 amount 的最少枚數，湊不出則 -1
-vector<int> dp(amount + 1, amount + 1);      // sentinel: amount+1 = 不可達
+// fewest coins to make amount, or -1 if impossible
+vector<int> dp(amount + 1, amount + 1);      // sentinel: amount+1 = unreachable
 dp[0] = 0;
 for (int coin : coins) {
     for (int w = coin; w <= amount; w++) {
@@ -75,8 +75,8 @@ return dp[W];
 Coin Change II 的 1D counting 中，外層**必須是 coins**、內層才是 `w`：
 
 ```cpp
-for (int coin : coins)         // ← 外層
-    for (int w = coin; ...)    // ← 內層
+for (int coin : coins)         // <- outer loop
+    for (int w = coin; ...)    // <- inner loop
 ```
 
 如果反過來（外層 `w`、內層 `coin`），會把「組合（combinations）」算成「排列（permutations）」，方案數會多算很多倍。

@@ -15,12 +15,12 @@
 ### 2D bool (feasibility) — 最直觀
 ```cpp
 vector<vector<bool>> dp(n + 1, vector<bool>(W + 1, false));
-dp[0][0] = true;                            // 空集合可湊出 0
+dp[0][0] = true;                            // the empty set sums to 0
 for (int i = 1; i <= n; i++) {
     for (int w = 0; w <= W; w++) {
-        dp[i][w] = dp[i-1][w];              // 不選 nums[i-1]
+        dp[i][w] = dp[i-1][w];              // skip nums[i-1]
         if (w >= nums[i-1])
-            dp[i][w] = dp[i][w] || dp[i-1][w - nums[i-1]];  // 選
+            dp[i][w] = dp[i][w] || dp[i-1][w - nums[i-1]];  // take
     }
 }
 return dp[n][W];
@@ -31,7 +31,7 @@ return dp[n][W];
 vector<bool> dp(W + 1, false);
 dp[0] = true;
 for (int num : nums) {
-    for (int w = W; w >= num; w--) {        // 倒著掃！
+    for (int w = W; w >= num; w--) {        // iterate backwards!
         dp[w] = dp[w] || dp[w - num];
     }
 }

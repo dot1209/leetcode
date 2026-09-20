@@ -55,7 +55,7 @@ public:
 vector<bool> dp(goal + 1, false);
 dp[0] = true;
 for (int num : nums) {
-    for (int w = goal; w >= num; w--) {     // 倒著掃
+    for (int w = goal; w >= num; w--) {     // iterate backwards
         dp[w] = dp[w] || dp[w - num];
     }
 }

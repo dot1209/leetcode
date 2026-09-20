@@ -20,7 +20,7 @@
 ListNode dummy(0);
 dummy.next = head;
 ListNode* prev = &dummy;
-// ... 修改完之後
+// ... after the modifications
 return dummy.next;
 ```
 
@@ -35,7 +35,7 @@ ListNode* reverse(ListNode* head) {
         prev = cur;
         cur = next;
     }
-    return prev;  // 新 head
+    return prev;  // new head
 }
 ```
 
@@ -47,8 +47,8 @@ while (fast->next && fast->next->next) {
     slow = slow->next;
     fast = fast->next->next;
 }
-// slow 是第一半的最後一個 node
-// slow->next 是第二半的 head（偶數時偏右）
+// slow is the last node of the first half
+// slow->next is the head of the second half (the right-middle node when n is even)
 ```
 
 複合題（如 reorder list）就是把這三招串起來。

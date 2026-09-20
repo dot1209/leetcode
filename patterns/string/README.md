@@ -13,11 +13,11 @@
 String 題沒有單一 skeleton，依變體不同。核心原語：
 
 ```cpp
-// 1. char ↔ int 轉換（處理數字字串時最常用）
+// 1. char <-> int conversion (the staple of digit-string problems)
 int d = ch - '0';        // char → int
 char c = '0' + d;        // int → char
 
-// 2. 雙指針從尾巴往前掃（模擬筆算對齊）
+// 2. two pointers scanning from the tail (aligns digits like longhand arithmetic)
 int i = s1.size() - 1, j = s2.size() - 1;
 while (i >= 0 || j >= 0 || carry) {
     int a = i >= 0 ? s1[i--] - '0' : 0;
@@ -25,7 +25,7 @@ while (i >= 0 || j >= 0 || carry) {
     // ...
 }
 
-// 3. 去前導零
+// 3. strip leading zeros
 size_t pos = s.find_first_not_of('0');
 return pos == string::npos ? "0" : s.substr(pos);
 ```
