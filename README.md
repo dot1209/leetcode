@@ -4,10 +4,10 @@
 
 ## 結構
 
-- `patterns/` — 每個 pattern 一個檔案或一個資料夾
+- `patterns/` — 每個 pattern 一個檔案或一個資料夾，放 pattern 層級的觀察，以及每題的三行摘要（Trigger / Insight / Pitfall）
   - 單一檔案：pattern 還沒分化出明顯變體
-  - 資料夾：pattern 有 3+ 變體，或內容超過 ~300 行
-- `templates/` — 獨立的 code skeleton（optional）
+  - 資料夾：題目真的能分成 2+ 種**不同的子類**（核心技巧 / 迴圈結構 / invariant 不同）才拆——看的是能不能分類，不是題數
+- `problems/<pattern>/` — 每題一個獨立檔案，放完整 write-up（trigger、insight、複雜度、code、pitfalls），由 pattern 檔的摘要連過來
 
 ## 使用方式
 
@@ -48,19 +48,19 @@
 ### [Heap / Priority Queue](patterns/heap.md)
 動態取集合極值；當每個 step 後集合會變動又得再次取極值時，比 sort 更划算。
 
+### [Linked List](patterns/linked-list/README.md)
+操作 singly / doubly linked list；許多題能藉「改寫 node 指標欄位」達到 O(1) 額外空間。
+- [Deep Copy](patterns/linked-list/deep-copy.md)
+- [In-place Rewiring](patterns/linked-list/in-place-rewiring.md)
+
 ### [Monotonic Stack](patterns/monotonic-stack.md)
 用單調的 stack 存住「還在等答案的元素」，pop 的那一刻就是答案定案的那一刻；用於 next greater / smaller 與「以某元素為極值能延伸多遠」類問題。
 
 ### [Sliding Window](patterns/sliding-window.md)
 用左右指針框出連續區間並隨掃描滑動，把「枚舉所有 subarray/substring」壓成線性掃描；靠增量維護視窗狀態避免重算。
 
-### [Linked List](patterns/linked-list/README.md)
-操作 singly / doubly linked list；許多題能藉「改寫 node 指標欄位」達到 O(1) 額外空間。
-- [Deep Copy](patterns/linked-list/deep-copy.md)
-- [In-place Rewiring](patterns/linked-list/in-place-rewiring.md)
-
 ### [String](patterns/string/README.md)
 字串為主要輸入、操作集中在字元層級而非 array random access；解析、模擬大數運算、模式比對等。
-- [Simulation](patterns/string/simulation.md)
 - [Pattern Matching (KMP)](patterns/string/pattern-matching.md)
+- [Simulation](patterns/string/simulation.md)
 <!-- INDEX END -->
