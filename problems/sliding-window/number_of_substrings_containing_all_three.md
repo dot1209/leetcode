@@ -62,7 +62,7 @@ public:
 };
 ```
 
-### 解法二:記最後出現位置
+### 解法二：記最後出現位置
 ```cpp
 class Solution {
 public:

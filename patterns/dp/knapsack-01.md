@@ -39,7 +39,7 @@ return dp[W];
 ```
 **倒著掃**是 0/1 vs unbounded 的關鍵：正向掃會讓同一個 `num` 多次被計入。
 
-### Bitset (極致加速)
+### Bitset（極致加速）
 ```cpp
 bitset<W_MAX + 1> dp;
 dp[0] = 1;

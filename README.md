@@ -52,7 +52,7 @@
 用單調的 stack 存住「還在等答案的元素」，pop 的那一刻就是答案定案的那一刻；用於 next greater / smaller 與「以某元素為極值能延伸多遠」類問題。
 
 ### [Sliding Window](patterns/sliding-window.md)
-用左右指針框出連續區間並隨掃描滑動,把「枚舉所有 subarray/substring」壓成線性掃描;靠增量維護視窗狀態避免重算。
+用左右指針框出連續區間並隨掃描滑動，把「枚舉所有 subarray/substring」壓成線性掃描；靠增量維護視窗狀態避免重算。
 
 ### [Linked List](patterns/linked-list/README.md)
 操作 singly / doubly linked list；許多題能藉「改寫 node 指標欄位」達到 O(1) 額外空間。

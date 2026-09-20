@@ -22,13 +22,13 @@
 - `dp[0][j] = j`：`word1` 為空，要跟 `word2` 前 `j` 個相等，只能把那 `j` 個全刪 → `j` 次
 - `dp[i][0] = i`：對稱，`word2` 為空 → 刪 `word1` 那 `i` 個
 
-檢查直覺的小技巧:**哪一維減 1,就代表刪了那一邊的字元**——減 `i` 是刪 `word1`、減 `j` 是刪 `word2`。
+檢查直覺的小技巧：**哪一維減 1，就代表刪了那一邊的字元**——減 `i` 是刪 `word1`、減 `j` 是刪 `word2`。
 
 ## Complexity Analysis
 - **Time O(m·n)**：填滿 `(m+1)×(n+1)` 的表，每格 O(1)
 - **Space O(m·n) → O(min(m,n))**：每格只依賴上一列 `dp[i-1][*]` 與本列左邊 `dp[i][j-1]`，留一列即可（O(n)）；再把較短字串擺內層 → O(min(m,n))
 
-旁註:答案也等於 `m + n - 2 · LCS(word1, word2)`——留得越多共同子序列、要刪的越少。所以這題跟 LCS 是同一題的兩種問法。
+旁註：答案也等於 `m + n - 2 · LCS(word1, word2)`——留得越多共同子序列、要刪的越少。所以這題跟 LCS 是同一題的兩種問法。
 
 ## Solution Code
 ```cpp
@@ -62,7 +62,7 @@ public:
 ## Alternatives / Optimization
 
 ### Rolling array → O(min(m,n)) space
-把較短字串擺內層(column),只留一列;對角值 `dp[i-1][j-1]` 在覆寫前用 `prev` 接住:
+把較短字串擺內層（column），只留一列；對角值 `dp[i-1][j-1]` 在覆寫前用 `prev` 接住：
 ```cpp
 int minDistance(string word1, string word2) {
     if (word1.size() < word2.size()) swap(word1, word2);  // keep shorter on inner dim
@@ -84,9 +84,9 @@ int minDistance(string word1, string word2) {
 ```
 
 ## Pitfalls
-- **相等分支不可漏**：若只寫 `if (!=)` 而沒有 `else`，相等時 `dp[i][j]` 會停在初始值 0，整張表錯掉(這是第一版踩到的 bug)。
-- **「都刪」是多餘且容易寫錯成本**:直覺會想加第三條「同時刪兩個」`dp[i-1][j-1]`。但同時刪兩字元是**兩次**操作(`+2`),而 `dp[i-1][j] ≤ dp[i-1][j-1] + 1` 保證「刪左再刪右」永遠不比它差 → 這條 transition 多餘。若誤寫成 `dp[i-1][j-1] + 1` 會把答案算少(WA)。
-- **半開區間 → 比較 `word1[i-1]` / `word2[j-1]`**：`dp[i]` 指前 `i` 個字元,實際比對 index `i-1`。
+- **相等分支不可漏**：若只寫 `if (!=)` 而沒有 `else`，相等時 `dp[i][j]` 會停在初始值 0，整張表錯掉（這是第一版踩到的 bug）。
+- **「都刪」是多餘且容易寫錯成本**：直覺會想加第三條「同時刪兩個」`dp[i-1][j-1]`。但同時刪兩字元是**兩次**操作（`+2`），而 `dp[i-1][j] ≤ dp[i-1][j-1] + 1` 保證「刪左再刪右」永遠不比它差 → 這條 transition 多餘。若誤寫成 `dp[i-1][j-1] + 1` 會把答案算少（WA）。
+- **半開區間 → 比較 `word1[i-1]` / `word2[j-1]`**：`dp[i]` 指前 `i` 個字元，實際比對 index `i-1`。
 
 ## Related Problems
 - [72] Edit Distance — 完整版（加上替換、插入），相等時同樣 `dp[i-1][j-1]`、不等時 `1 + min(三條)`

@@ -48,7 +48,7 @@ return count;
 
 ### [[1877] Minimize Maximum Pair Sum in Array](../problems/greedy/minimize_maximum_pair_sum.md)
 **Complexity:** Time O(n log n), Space O(1)
-- **Trigger:** 兩兩配對並「最小化最大配對和」(minimize the maximum) → sort 後頭尾相接
+- **Trigger:** 兩兩配對並「最小化最大配對和」（minimize the maximum）→ sort 後頭尾相接
 - **Insight:** 最小配最大；exchange argument——若最優解沒把 min 跟 max 配在一起，交換成 `(min,max)`+`(x,y)` 後兩個和都 ≤ 原本的 `max+y`，max 不增
 - **Pitfall:** 別只憑直覺配頭尾就交卷，正確性要靠 exchange argument；回傳的是配對和的 max 不是總和
 

@@ -63,7 +63,7 @@ return dp[goal];
 ```
 Space 從 O(n · goal) → O(goal)。
 
-### Bitset (最快)
+### Bitset（最快）
 ```cpp
 bitset<10001> dp;                           // goal ≤ sum/2 ≤ 10000
 dp[0] = 1;

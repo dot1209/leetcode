@@ -1,4 +1,4 @@
-# DP — Two-Sequence (雙序列對齊)
+# DP — Two-Sequence（雙序列對齊）
 
 ## When to Use
 兩個序列 `s`、`t`（字串或陣列）放在二維表上對齊，`dp[i][j]` 描述「`s` 前 `i` 個 vs `t` 前 `j` 個」的某個值——這是 LCS / Edit Distance / Distinct Subsequences 的共同骨架。
@@ -59,11 +59,11 @@ return dp[s.size()][t.size()];
 ### [[115] Distinct Subsequences](../../problems/dp/distinct_subsequences.md)
 **Complexity:** Time O(s·t), Space O(s·t) → 可壓 O(t)
 - **Trigger:** 兩字串，問 `t` 作為 `s` 的 subsequence 出現幾次 → 雙序列 counting DP
-- **Insight:** 相等時「用這個 `s[i-1]` 配對」(`dp[i-1][j-1]`) 與「不用、留給後面」(`dp[i-1][j]`) 兩條路相加；不等時只能不用
+- **Insight:** 相等時「用這個 `s[i-1]` 配對」（`dp[i-1][j-1]`）與「不用、留給後面」（`dp[i-1][j]`）兩條路相加；不等時只能不用
 - **Pitfall:** Base 是 `dp[i][0]=1`（空 `t` 一種：全不選）、`dp[0][j>0]=0`（空 `s` 湊不出非空 `t`）；計數要開 `long`
 
 ### [[583] Delete Operation for Two Strings](../../problems/dp/delete_operation_two_strings.md)
 **Complexity:** Time O(m·n), Space O(m·n) → 可壓 O(min(m,n))
 - **Trigger:** 兩字串每次刪一字元、求最少刪幾次相等 → Edit Distance 的縮減版（只有刪除）
-- **Insight:** 相等時直接配對不用刪 (`dp[i-1][j-1]`)；不等時刪左 / 刪右取小 (`min(dp[i-1][j], dp[i][j-1]) + 1`)。等價於 `m + n - 2·LCS`
+- **Insight:** 相等時直接配對不用刪（`dp[i-1][j-1]`）；不等時刪左 / 刪右取小（`min(dp[i-1][j], dp[i][j-1]) + 1`）。等價於 `m + n - 2·LCS`
 - **Pitfall:** 相等分支不可漏（漏了停在 0）；別加「都刪」那條——成本是 +2、且被刪左/刪右支配，多餘

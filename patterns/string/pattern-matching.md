@@ -103,7 +103,7 @@ int kmp(const string& small, const string& big) {
 ## Problems
 
 ### [[1967] Number of Strings That Appear as Substrings in Word](../../problems/string/number_of_strings_as_substrings.md)
-**Complexity:** Time O(L·(N+M)), Space O(M)（L=小字串數量, N=大字串長, M=小字串長）
+**Complexity:** Time O(L·(N+M)), Space O(M)（L=小字串數量，N=大字串長，M=小字串長）
 - **Trigger:** 問一堆小字串各自是否為大字串的 substring → 逐個做 substring search
 - **Insight:** 對每個小字串建 failure、再到大字串裡跑 KMP，命中就 +1；大字串指標永不後退
 - **Pitfall:** 方向別反（failure 建在小字串上、在大字串裡找小字串）；constraints ≤ 100，其實 `word.find` 一行就夠，KMP 是練手

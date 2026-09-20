@@ -32,7 +32,7 @@
 
 ## Template Code
 
-### 1D rolling — counting ways (LC 518 Coin Change II 風格)
+### 1D rolling — counting ways（LC 518 Coin Change II 風格）
 ```cpp
 // number of ways to make amount from coins (unlimited reuse)
 vector<int> dp(amount + 1, 0);
@@ -45,7 +45,7 @@ for (int coin : coins) {
 return dp[amount];
 ```
 
-### 1D rolling — min count (LC 322 Coin Change 風格)
+### 1D rolling — min count（LC 322 Coin Change 風格）
 ```cpp
 // fewest coins to make amount, or -1 if impossible
 vector<int> dp(amount + 1, amount + 1);      // sentinel: amount+1 = unreachable

@@ -70,7 +70,7 @@ Trace `1→2→3→4`：
 - 找中點：slow=2，second half=3
 - Cut：1→2，second=3→4
 - Reverse：4→3，prev=4
-- Merge：p1=1, p2=4 → 1→4→2，p1=2, p2=3 → 2→3 (3->next 本來就 null)，p1=null, p2=null
+- Merge：p1=1, p2=4 → 1→4→2，p1=2, p2=3 → 2→3（3->next 本來就 null），p1=null, p2=null
 - 結果：`1→4→2→3` ✓
 
 ## Alternatives / Optimization

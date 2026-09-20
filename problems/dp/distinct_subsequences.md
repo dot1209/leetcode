@@ -91,4 +91,4 @@ return dp[t.size()];
 - [1143] Longest Common Subsequence — 同網格，相等取 `dp[i-1][j-1]+1`、不等取 `max(上, 左)`
 - [72] Edit Distance — 同網格，不等取 `1 + min(替換, 刪, 增)`
 - [583] Delete Operation for Two Strings — LCS 的變形（刪到剩共同子序列）
-- [97] Interleaving String — 雙序列 DP 但問「能否交錯組成第三字串」(feasibility)
+- [97] Interleaving String — 雙序列 DP 但問「能否交錯組成第三字串」（feasibility）
