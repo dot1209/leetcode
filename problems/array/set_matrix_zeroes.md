@@ -29,7 +29,7 @@ public:
         int rows = matrix.size();
         int cols = matrix[0].size();
 
-        // 1. Snapshot: row 0 / col 0 原本有沒有 0
+        // 1. Snapshot: did row 0 / col 0 originally contain a 0?
         bool firstRowZero = false;
         bool firstColZero = false;
         for (int j = 0; j < cols; j++)
@@ -37,7 +37,7 @@ public:
         for (int i = 0; i < rows; i++)
             if (matrix[i][0] == 0) { firstColZero = true; break; }
 
-        // 2. Mark: 用 row 0 / col 0 當其他 row / col 的旗標
+        // 2. Mark: use row 0 / col 0 as the flags for every other row / col
         for (int i = 1; i < rows; i++)
             for (int j = 1; j < cols; j++)
                 if (matrix[i][j] == 0) {
@@ -45,13 +45,13 @@ public:
                     matrix[0][j] = 0;
                 }
 
-        // 3. Use: 依旗標清 interior（i, j >= 1）
+        // 3. Use: zero the interior (i, j >= 1) according to the flags
         for (int i = 1; i < rows; i++)
             for (int j = 1; j < cols; j++)
                 if (matrix[i][0] == 0 || matrix[0][j] == 0)
                     matrix[i][j] = 0;
 
-        // 4. Restore: 根據 snapshot 處理 row 0 / col 0 本身
+        // 4. Restore: handle row 0 / col 0 themselves from the snapshot
         if (firstRowZero)
             for (int j = 0; j < cols; j++) matrix[0][j] = 0;
         if (firstColZero)
