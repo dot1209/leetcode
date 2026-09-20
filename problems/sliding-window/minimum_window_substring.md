@@ -74,7 +74,8 @@ public:
 ### 把 `substr` 留到最後
 別在內層 while 裡每次 `res = s.substr(...)`;只記 `best_l`/`best_len`,迴圈結束才 substr 一次,省掉反覆的字串配置。
 
-## 一段除錯實錄(關於 MLE 與記憶體的觀念)
+## Side Notes
+### 一段除錯實錄(關於 MLE 與記憶體的觀念)
 這題我一度懷疑某版本 MLE,過程中釐清了幾個常見誤解:
 - `s.substr(pos, len)` 的 `len` 算成負的**不會**配置巨大字串——它是 `size_t`,會被 clamp 成 `min(len, size()-pos)`(實測 `substr(0, -1)` 對 `"abc"` 回傳 `"abc"`)。`pos > size()` 則是丟 `out_of_range`,屬 Runtime Error 而非 MLE。
 - 「substr 一直複製」也**不會** MLE:`res = s.substr(...)` 會釋放舊值,任何時刻只有一份活著。**MLE 量的是峰值同時佔用,不是累計配置量**。

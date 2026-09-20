@@ -59,12 +59,7 @@ public:
 };
 ```
 
-## Pitfalls
-- **相等分支不可漏**：若只寫 `if (!=)` 而沒有 `else`，相等時 `dp[i][j]` 會停在初始值 0，整張表錯掉(這是第一版踩到的 bug)。
-- **「都刪」是多餘且容易寫錯成本**:直覺會想加第三條「同時刪兩個」`dp[i-1][j-1]`。但同時刪兩字元是**兩次**操作(`+2`),而 `dp[i-1][j] ≤ dp[i-1][j-1] + 1` 保證「刪左再刪右」永遠不比它差 → 這條 transition 多餘。若誤寫成 `dp[i-1][j-1] + 1` 會把答案算少(WA)。
-- **半開區間 → 比較 `word1[i-1]` / `word2[j-1]`**：`dp[i]` 指前 `i` 個字元,實際比對 index `i-1`。
-
-## Optimization
+## Alternatives / Optimization
 
 ### Rolling array → O(min(m,n)) space
 把較短字串擺內層(column),只留一列;對角值 `dp[i-1][j-1]` 在覆寫前用 `prev` 接住:
@@ -87,6 +82,11 @@ int minDistance(string word1, string word2) {
     return dp[n];
 }
 ```
+
+## Pitfalls
+- **相等分支不可漏**：若只寫 `if (!=)` 而沒有 `else`，相等時 `dp[i][j]` 會停在初始值 0，整張表錯掉(這是第一版踩到的 bug)。
+- **「都刪」是多餘且容易寫錯成本**:直覺會想加第三條「同時刪兩個」`dp[i-1][j-1]`。但同時刪兩字元是**兩次**操作(`+2`),而 `dp[i-1][j] ≤ dp[i-1][j-1] + 1` 保證「刪左再刪右」永遠不比它差 → 這條 transition 多餘。若誤寫成 `dp[i-1][j-1] + 1` 會把答案算少(WA)。
+- **半開區間 → 比較 `word1[i-1]` / `word2[j-1]`**：`dp[i]` 指前 `i` 個字元,實際比對 index `i-1`。
 
 ## Related Problems
 - [72] Edit Distance — 完整版（加上替換、插入），相等時同樣 `dp[i-1][j-1]`、不等時 `1 + min(三條)`

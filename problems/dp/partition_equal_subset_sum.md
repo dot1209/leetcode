@@ -49,6 +49,29 @@ public:
 };
 ```
 
+## Alternatives / Optimization
+### 1D Rolling
+```cpp
+vector<bool> dp(goal + 1, false);
+dp[0] = true;
+for (int num : nums) {
+    for (int w = goal; w >= num; w--) {     // 倒著掃
+        dp[w] = dp[w] || dp[w - num];
+    }
+}
+return dp[goal];
+```
+Space 從 O(n · goal) → O(goal)。
+
+### Bitset (最快)
+```cpp
+bitset<10001> dp;                           // goal ≤ sum/2 ≤ 10000
+dp[0] = 1;
+for (int num : nums) dp |= dp << num;
+return dp[goal];
+```
+`dp[w] = 1` 代表「能湊出 w」。`dp << num` 是「全部可達 sum 都加 num」，`dp |= ...` 把「pick / not pick」兩條 path 聯集。CPU 一次處理 64 bits，常數比 1D bool 快約 30-50 倍。
+
 ## Pitfalls
 
 ### Base case 容易寫錯成「整列同值」
@@ -70,28 +93,6 @@ public:
 
 ### Pseudo-polynomial 不是真的 polynomial
 LC 限制 `nums[i] ≤ 100` 才讓 DP work。如果題目給 `nums[i] ≤ 10^9`，DP 直接 OOM 不可行。要警覺這條線，不要看到 subset sum 就無腦上 DP。
-
-## Optimization: 1D Rolling
-```cpp
-vector<bool> dp(goal + 1, false);
-dp[0] = true;
-for (int num : nums) {
-    for (int w = goal; w >= num; w--) {     // 倒著掃
-        dp[w] = dp[w] || dp[w - num];
-    }
-}
-return dp[goal];
-```
-Space 從 O(n · goal) → O(goal)。
-
-## Optimization: Bitset (最快)
-```cpp
-bitset<10001> dp;                           // goal ≤ sum/2 ≤ 10000
-dp[0] = 1;
-for (int num : nums) dp |= dp << num;
-return dp[goal];
-```
-`dp[w] = 1` 代表「能湊出 w」。`dp << num` 是「全部可達 sum 都加 num」，`dp |= ...` 把「pick / not pick」兩條 path 聯集。CPU 一次處理 64 bits，常數比 1D bool 快約 30-50 倍。
 
 ## Related Problems
 - [494] Target Sum — 0/1 knapsack **counting**（用 int + `+=`，正解就是 int 版），可轉化為 subset sum

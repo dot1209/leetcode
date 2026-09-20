@@ -60,13 +60,7 @@ public:
 };
 ```
 
-## Pitfalls
-- **Base 不是整列同值**：第 0 **行**（空 `t`）全填 1，第 0 **列**（空 `s`）保持 0。把握「哪一維為 0 代表空哪個字串」才不會初值寫反。
-- **半開區間 → 比較 `s[i-1]` / `t[j-1]`**：`dp[i]` 指前 `i` 個字元 `s[0..i)`，所以實際比對的是 index `i-1`，差一格是經典 off-by-one。
-- **Counting overflow**：方案數最壞指數級，用 `unsigned long` / `long long`（LeetCode 保證最終答案落在 32-bit，但中間累加要型別夠寬）。
-- **「相等才多一條路」**：不等時**不能**加 `dp[i-1][j-1]`，只有 `dp[i-1][j]`。把不等也寫成相加是最常見的邏輯錯。
-
-## Optimization
+## Alternatives / Optimization
 
 ### Rolling array → O(t) space
 每個 `dp[i][j]` 只看上一列。壓成一維時，從**右往左**更新 `j`，這樣 `dp[j-1]` 在被覆寫前還是「上一列的左上對角」：
@@ -86,6 +80,12 @@ for (int i = 1; i <= (int)s.size(); i++) {
 return dp[t.size()];
 ```
 往左掃是關鍵：若往右掃，`dp[j-1]` 會先被本列更新、變成「左」而非「左上」，對角值就丟了。
+
+## Pitfalls
+- **Base 不是整列同值**：第 0 **行**（空 `t`）全填 1，第 0 **列**（空 `s`）保持 0。把握「哪一維為 0 代表空哪個字串」才不會初值寫反。
+- **半開區間 → 比較 `s[i-1]` / `t[j-1]`**：`dp[i]` 指前 `i` 個字元 `s[0..i)`，所以實際比對的是 index `i-1`，差一格是經典 off-by-one。
+- **Counting overflow**：方案數最壞指數級，用 `unsigned long` / `long long`（LeetCode 保證最終答案落在 32-bit，但中間累加要型別夠寬）。
+- **「相等才多一條路」**：不等時**不能**加 `dp[i-1][j-1]`，只有 `dp[i-1][j]`。把不等也寫成相加是最常見的邏輯錯。
 
 ## Related Problems
 - [1143] Longest Common Subsequence — 同網格，相等取 `dp[i-1][j-1]+1`、不等取 `max(上, 左)`

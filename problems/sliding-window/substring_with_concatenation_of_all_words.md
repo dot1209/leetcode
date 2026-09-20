@@ -107,7 +107,7 @@ public:
 ### `unordered_map::operator[]` 讀不存在的 key 會偷插 0
 `window[r_word] == target[r_word]` 對非目標詞會在 `target` 插入 value=0 的 entry。這題因為 `required` 一開始就存起來、之後不再讀 `target.size()`,所以**不影響答案**;但仍是髒資料。對照 LC76:那裡若拿 `target.size()` 當判準就會 WA,這題剛好躲過。
 
-## 延伸 / Follow-up
+## Follow-ups
 LC30 官方沒有明列 follow-up;最自然的延伸是:**如果 `words` 不等長呢?**
 這個解法的三根支柱全建立在「等長」上——
 - 滿視窗長度 `target_size = words.size() * word_len` 能事先算出;

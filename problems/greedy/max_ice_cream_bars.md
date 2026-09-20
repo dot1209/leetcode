@@ -45,7 +45,7 @@ public:
 };
 ```
 
-## Notes / 可改進處（不改你的 code，另記於此）
+## Alternatives / Optimization
 1. **可以早停。** 值域是 ascending 掃描，一旦最便宜的剩餘 `i` 都買不起（`coins < i`），後面更貴的必然也買不起，外層可直接 `break`/`return count;`，省掉後面整段空轉（不影響最壞複雜度，但實務上常常很早就停）。
 2. **`int freq[100001]` 開在 stack 上約 ~391 KB。** LeetCode 跑得過，但在預設 stack 較小的環境（某些執行緒只有 1 MB）會逼近上限；若想保險可改 `static`、`vector<int>` 或放到 heap，記憶體就不佔 call stack。
 

@@ -50,24 +50,7 @@ public:
 };
 ```
 
-## Pitfalls
-
-### `substr` 的起點是 `i - len(word)`，不是 `i - 1`
-`dp[i]` 對應的前綴是 `s[0..i)`，所以結尾那段 word 佔據 `s[i - len(word) .. i)`，起點當然是 `i - len(word)`。寫成 `s.substr(i - 1, ...)` 是常見的 off-by-one 錯誤（拿了從位置 `i-1` 開始的子字串，整個位移亂掉）。
-
-### `substr` vs `compare`
-`s.substr(start, len)` 每次都會 allocate 一個新的 string，DP tight loop 跑 n × m 次配置很浪費。改用 `s.compare(start, len, target)` 直接在原字串上比，不配記憶體。
-
-### Feasibility 記得 `break`
-一旦 `dp[i] = true`，後面繼續查其他 word 也沒意義（不能更 true）。`break` 出內層 loop 在 dict 大時是顯著加速。
-
-### 不要硬套 knapsack
-看起來像「每個 word 是物品、長度是 weight、s 的長度是 capacity」，但 knapsack 不關心物品出現在哪個位置；這題的 `s[j..i)` 必須在 `s` 的特定位置上對得起來。硬套會丟掉位置約束，思路被帶歪。
-
-### `dp[i] = true` vs `dp[i] = dp[i - len]`
-在「先用 if 確認 `dp[i - len] == true` 才進入 assign」的寫法下，兩者等價。建議用 `dp[i] = true` 因為意圖比較直接（reader 不用追前一個 state 是什麼）。
-
-## Optimization
+## Alternatives / Optimization
 
 ### Early break
 已寫進上面 Solution Code 裡（內層 `break`）。
@@ -92,6 +75,23 @@ Time O(n² · L)。哪種快取決於 `m` 與 `n` 的比例：
 
 ### Trie（進階）
 把 wordDict 建成 Trie，從位置 `j` 沿 Trie 往下走 `s[j], s[j+1], ...`，遇到 word end 就標記 `dp[i] = true`。一次走訪能同時試所有以 `s[j]` 開頭的字，少很多重複比對。Code 複雜很多，面試一般 early break + hashset 就夠。
+
+## Pitfalls
+
+### `substr` 的起點是 `i - len(word)`，不是 `i - 1`
+`dp[i]` 對應的前綴是 `s[0..i)`，所以結尾那段 word 佔據 `s[i - len(word) .. i)`，起點當然是 `i - len(word)`。寫成 `s.substr(i - 1, ...)` 是常見的 off-by-one 錯誤（拿了從位置 `i-1` 開始的子字串，整個位移亂掉）。
+
+### `substr` vs `compare`
+`s.substr(start, len)` 每次都會 allocate 一個新的 string，DP tight loop 跑 n × m 次配置很浪費。改用 `s.compare(start, len, target)` 直接在原字串上比，不配記憶體。
+
+### Feasibility 記得 `break`
+一旦 `dp[i] = true`，後面繼續查其他 word 也沒意義（不能更 true）。`break` 出內層 loop 在 dict 大時是顯著加速。
+
+### 不要硬套 knapsack
+看起來像「每個 word 是物品、長度是 weight、s 的長度是 capacity」，但 knapsack 不關心物品出現在哪個位置；這題的 `s[j..i)` 必須在 `s` 的特定位置上對得起來。硬套會丟掉位置約束，思路被帶歪。
+
+### `dp[i] = true` vs `dp[i] = dp[i - len]`
+在「先用 if 確認 `dp[i - len] == true` 才進入 assign」的寫法下，兩者等價。建議用 `dp[i] = true` 因為意圖比較直接（reader 不用追前一個 state 是什麼）。
 
 ## Related Problems
 - [140] Word Break II — 同樣狀態定義，但要列舉所有切法（feasibility → enumeration，DP + backtracking 結合）

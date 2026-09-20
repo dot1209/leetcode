@@ -1,6 +1,6 @@
 # [3517] Smallest Palindromic Rearrangement I
 **Pattern:** [Frequency Counting](../../patterns/frequency-counting.md)
-**Complexity:** Time O(n), Space O(n) — `half`/`rev` 兩個中間 buffer 隨 n 成長;可壓到 auxiliary O(1)(見「其他解法」)
+**Complexity:** Time O(n), Space O(n) — `half`/`rev` 兩個中間 buffer 隨 n 成長;可壓到 auxiliary O(1)(見「Alternatives / Optimization」)
 **Link:** https://leetcode.com/problems/smallest-palindromic-rearrangement-i/
 
 ## Trigger Signals
@@ -11,6 +11,11 @@
 **答案 = 「每個字母取一半、由 `a→z` 升序排」構成前半段,奇數次的字母放正中間,後半段是前半段的鏡射。**
 
 因為 `s` 是回文,最多只有一個字母是奇數次。整個回文的後半段被前半段完全決定(鏡射)、中間字元也固定(唯一的奇數字母),所以字典序**只由前半段決定** → 要最小就把小字母盡量往前放,也就是把每個字母的「一半份數」按 `a→z` 依序 append(greedy:每個位置放當下可用的最小字母)。
+
+## Why It's Correct
+### 為什麼「升序排前半段」給出字典序最小
+- 後半段是前半段的鏡射、中間字元是唯一的奇數字母 —— 兩者都不是自由變數,所以整個回文的字典序**只取決於前半段**。
+- 要前半段字典序最小 → 越小的字母越往前 → 把每個字母的一半份數按 `a→z` 依序放。這是標準 greedy:每個位置都填「當下還有庫存的最小字母」,不會有更好的選擇。
 
 ## Complexity Analysis
 - **Time O(n)** — 掃 freq 是 O(n);組 `half`、`rev`、最後串接 `half + mid + rev` 每步都線性。
@@ -41,11 +46,7 @@ public:
 ```
 > 已用 brute-force(`next_permutation` 取第一個回文)對拍,even / odd / 全同字元 / 單字元皆通過。
 
-## 為什麼「升序排前半段」給出字典序最小
-- 後半段是前半段的鏡射、中間字元是唯一的奇數字母 —— 兩者都不是自由變數,所以整個回文的字典序**只取決於前半段**。
-- 要前半段字典序最小 → 越小的字母越往前 → 把每個字母的一半份數按 `a→z` 依序放。這是標準 greedy:每個位置都填「當下還有庫存的最小字母」,不會有更好的選擇。
-
-## 其他解法 / 複雜度優化(不改上面的 code)
+## Alternatives / Optimization
 - **真・O(1) auxiliary:** 別另外 materialize `half` 和 `rev`,而是先把 output buffer 開好(`string res(n, ' ')`),再從兩端對稱往中間填,只用 `freq[26]`。(這剛好呼應下面 Pitfalls:字串**先 `resize` 撐長度**,`res[i]` 直接寫才合法。)已對拍驗證通過:
   ```cpp
   string smallestPalindrome(string s) {
@@ -71,7 +72,7 @@ public:
 - **複雜度別只看固定陣列。** `half`/`rev` 這種隨 n 成長的中間 buffer 也要算進 space → 是 **O(n)** 不是 O(1)。
 - **中間字元只有 odd n 才有。** 回文保證頂多一個奇數字母;even n 沒有中間字元,`mid` 留空字串,`half + "" + rev` 剛好正確。
 
-## 概念補充(這題連帶學到的)
+## Side Notes
 - **`reserve` vs `resize` vs `capacity`:** `reserve(n)` 只確保 capacity ≥ n(預留 buffer、避免 reallocation),**size 不變**;`resize(n)` 才會改 size(新字元 value-initialize 成 `'\0'`)。`operator[]` 的合法範圍由 `size()` 決定,跟 capacity 無關。
 - **SSO(Small String Optimization)是 library 技巧,不是 compiler optimization。** `std::string` 的實作在物件內部塞一個小 buffer,短字串(libstdc++ ≤ 15、libc++ ≤ 22)直接存在裡面、不碰 heap,所以空字串 `capacity()` 天生就是 15、對小字串 `reserve` 常常看似無效。它寫死在 STL 原始碼裡,`-O0` 照樣有;換 STL 實作才會變(換 compiler / 調 `-O` 不變)。
 

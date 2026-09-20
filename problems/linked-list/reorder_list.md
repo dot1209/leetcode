@@ -73,14 +73,8 @@ Trace `1→2→3→4`：
 - Merge：p1=1, p2=4 → 1→4→2，p1=2, p2=3 → 2→3 (3->next 本來就 null)，p1=null, p2=null
 - 結果：`1→4→2→3` ✓
 
-## Pitfalls
-- **沒 cut 就反轉會 cycle**：`slow->next = nullptr` 必須在反轉前做，否則反轉後 second half 的尾巴會指回前半中間
-- **Merge 迴圈條件**：用 `while (p2)` 而非 `while (p1)` 或 `while (p1 && p2)`。p2 一定 ≤ p1（奇數時 p1 多一個 node），p2 走完就結束；p1 那個多出來的 node 它的 `next` 已經被前一輪設好了，自然收尾
-- **保存 next 再改 next**：每次改指標前先存 `t1 = p1->next; t2 = p2->next;`，否則後面找不到下一格
-- **奇數長度 slow/fast 的偏向**：`while (fast->next && fast->next->next)` 讓 slow 停在前半最後一個（5 個 node 時停在第 3 個）；若改成 `while (fast && fast->next)` slow 會多走一步停在中間偏右
-- **`head == nullptr` 或單 node**：要先擋掉，否則第一行 `fast->next` 就 deref nullptr
-
-## Alternative Merge（內層 if 版本）
+## Alternatives / Optimization
+### Alternative Merge（內層 if 版本）
 
 也可以用 first half 當主迴圈、用 `if (pre)` 處理奇偶。可讀性較差但邏輯也對：
 
@@ -99,6 +93,13 @@ while (cur) {
 ```
 
 差別在用「較長半」當主鏈，內層額外判斷「短半是否還在」。用「較短半」當主鏈可以消掉這個 if。
+
+## Pitfalls
+- **沒 cut 就反轉會 cycle**：`slow->next = nullptr` 必須在反轉前做，否則反轉後 second half 的尾巴會指回前半中間
+- **Merge 迴圈條件**：用 `while (p2)` 而非 `while (p1)` 或 `while (p1 && p2)`。p2 一定 ≤ p1（奇數時 p1 多一個 node），p2 走完就結束；p1 那個多出來的 node 它的 `next` 已經被前一輪設好了，自然收尾
+- **保存 next 再改 next**：每次改指標前先存 `t1 = p1->next; t2 = p2->next;`，否則後面找不到下一格
+- **奇數長度 slow/fast 的偏向**：`while (fast->next && fast->next->next)` 讓 slow 停在前半最後一個（5 個 node 時停在第 3 個）；若改成 `while (fast && fast->next)` slow 會多走一步停在中間偏右
+- **`head == nullptr` 或單 node**：要先擋掉，否則第一行 `fast->next` 就 deref nullptr
 
 ## Related Problems
 - [206] Reverse Linked List — 反轉原語本身

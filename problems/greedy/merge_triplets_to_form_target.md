@@ -50,7 +50,8 @@ public:
 };
 ```
 
-## 程式碼小優化（非 bug，原碼照留）
+## Alternatives / Optimization
+### 程式碼小優化（非 bug，原碼照留）
 - `return x & y & z;` 用 bitwise `&`：對 `bool`（值只會是 0/1）結果正確，但慣例上邏輯判斷用 `&&`（較清楚、有 short-circuit）。這裡沒 side effect 所以沒差。
 - `i < triplets.size()` 是 `int` vs `size_t` 的 signed/unsigned 比較（`-Wsign-compare`）；可改成 range-based for `for (auto& t : triplets)`，連 index 雜訊一起省掉。
 
