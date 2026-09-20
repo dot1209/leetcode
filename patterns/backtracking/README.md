@@ -11,7 +11,7 @@
 **Time:** 通常是指數級，O(b^d) 其中 b 是每層分支數、d 是搜尋深度。剪枝（pruning）只能改善常數，不會改變最壞情況的階。
 **Space:** O(d) 遞迴堆疊深度；若需要紀錄目前路徑也是 O(d)。
 
-## General Template
+## Template Code
 ```cpp
 void backtrack(State& state, /* problem-specific args */) {
     if (/* found a solution */) {

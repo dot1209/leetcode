@@ -9,7 +9,7 @@
 **Time:** 多數 O(n) 或 O(m·n)（單純掃過）；複合操作如 sort + scan 是 O(n log n)
 **Space:** Brute force 多半是 O(n)（hashmap / extra array），follow-up 常要求 O(1)
 
-## General Template
+## Template Code
 最常用的幾個原語：
 
 ### 1. 兩個 index 同時走（two pointers / sliding window）

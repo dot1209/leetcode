@@ -12,7 +12,7 @@
 
 特殊類型：**pseudo-polynomial**（如 knapsack）對「值的大小 V」是 polynomial，對「input 編碼長度 log V」是 exponential。
 
-## General Template
+## Template Code
 
 ### 狀態定義（最重要）
 先確定 `dp[i][j][...]` 的意義，越精確越好。常見的提問格式：

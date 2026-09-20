@@ -17,7 +17,7 @@ STL 對應：
 
 當題目只關心 top-k 時，限制 heap 大小到 k 可以把 time 從 O(n log n) 降到 O(n log k)，space 從 O(n) 降到 O(k)。這是「靜態 sort 全部 vs 動態維護一個 k-size heap」的關鍵差異。
 
-## General Template
+## Template Code
 ```cpp
 priority_queue<int> pq;             // max-heap
 // priority_queue<int, vector<int>, greater<int>> pq;  // min-heap

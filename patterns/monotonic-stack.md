@@ -19,7 +19,7 @@ Monotonic Stack 是用一個數值單調的 stack 存住**還在等答案的元�
 **Time:** O(n) — 主迴圈內雖然有巢狀 `while`，但每個 index 一生只被 push 一次、pop 一次，所以 `while` 的**總**執行次數 ≤ n，是攤還 O(n) 不是 O(n²)。這跟 two pointers、greedy + stack 是同一種攤還論證。
 **Space:** O(n) — stack 最壞存下全部元素（輸入嚴格遞增時完全不 pop）。若答案是逐位置的陣列，輸出另計 O(n)。
 
-## General Template
+## Template Code
 ```cpp
 // The stack holds INDICES of elements still waiting for their answer.
 // Invariant: values in the stack are monotonic from bottom to top.

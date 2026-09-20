@@ -18,7 +18,7 @@ Greedy 是「每一步都做當下看起來最好的選擇、做完不回頭」�
 
 關鍵理解：greedy 本身只是 O(n) 的掃描，複雜度幾乎都是花在「把順序準備好」這一步——所以想優化時間，優化的對象是**排序方式**（comparison sort 的 O(n log n) vs counting sort 的 O(n + maxVal)），不是貪心迴圈。
 
-## General Template
+## Template Code
 ```cpp
 // Sort, then take greedily in order until the budget / constraint runs out.
 sort(items.begin(), items.end());          // cheapest / smallest / earliest first

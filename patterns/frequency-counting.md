@@ -20,7 +20,7 @@ Frequency counting 的核心動作只有一個：**先掃一遍把每個元素�
 
 關鍵理解：時間花在「建表」那一遍線性掃描上，推答案那步通常是對固定大小的表做彙整、不隨 n 增長。想知道是 O(1) 還是 O(n) 空間，看的是 **key 的值域**而不是元素個數。
 
-## General Template
+## Template Code
 ```cpp
 // 1. Count occurrences into a fixed-size table (small known alphabet).
 int freq[26] = {0};

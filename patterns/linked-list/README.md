@@ -12,7 +12,7 @@ Linked list 題的核心觀察：每個 node 有「**可寫的指標欄位**」�
 **Time:** 多數操作 O(n) — 必須走過整條 list；無法 random access
 **Space:** 可達 O(1)（in-place 操作）；遞迴解法是 O(n) stack
 
-## General Template
+## Template Code
 ```cpp
 // dummy head：避免處理 head 變動的特例
 ListNode dummy(0);

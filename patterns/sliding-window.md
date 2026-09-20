@@ -18,7 +18,7 @@ Sliding Window 是用左右兩個指針框出 array / string 上一段**連續�
 
 關鍵理解:把「每步 O(σ) 重掃整個視窗判斷合法」換成「進出元素時 O(1) 增量更新一個摘要值」,是這個 pattern 從「能過但常數肥」進化到「乾淨 O(n)」的核心——見下方 incremental counter。
 
-## General Template
+## Template Code
 ```cpp
 // Variable window: grow r to satisfy, then shrink l while still satisfied.
 int need[128] = {0}, win[128] = {0};

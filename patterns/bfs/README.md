@@ -12,7 +12,7 @@ BFS 的核心保證：**邊權都相等時，第一次到達某節點所經過�
 **Time:** O(V + E)。每個節點最多進 queue 一次（被 visited 標記擋下），每條邊最多被檢查一次。Grid 上常見寫法是 O(m·n)：節點 m·n 個、每個節點最多檢查 4 個鄰居，總邊數 4·m·n。
 **Space:** O(V)。queue 在最壞情況下可能同時裝下整層的節點；`visited` 結構也是 O(V)。
 
-## General Template
+## Template Code
 ```cpp
 queue<State> q;
 q.push(start);

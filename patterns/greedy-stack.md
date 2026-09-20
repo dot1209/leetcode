@@ -21,7 +21,7 @@ Greedy + Stack 是用一個 stack 當「暫存區」、配合一條 **flush 規�
 
 關鍵理解：巢狀 while 看起來像 O(n²)，但攤還是 O(n)——這跟 monotonic stack、two pointers 是同一種「每個元素只進出一次」的攤還論證。
 
-## General Template
+## Template Code
 ```cpp
 // Flavor A — suffix-min flush: build lexicographically smallest output.
 // Pop the top once nothing smaller can ever surface from the unread part.

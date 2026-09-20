@@ -9,7 +9,7 @@
 **Time:** 多數 O(n) 或 O(m·n)（兩字串交互處理）；模式比對類有 O(n+m)（KMP）或 O(n·m) brute force
 **Space:** Brute force 常開額外 buffer 存中間結果（O(n) ~ O(m+n)）；follow-up 常要求把 buffer 壓掉，直接在輸出字串上累加
 
-## General Template
+## Template Code
 String 題沒有單一 skeleton，依變體不同。核心原語：
 
 ```cpp
