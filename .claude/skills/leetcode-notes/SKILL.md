@@ -60,6 +60,7 @@ When the user describes a solved problem:
 5. **Create the standalone problem file** at `problems/<pattern>/<problem_name>.md` using the Problem File Template. If the problem has a genuine follow-up / natural extension, record it in the Follow-ups section (never invent one).
 6. **Append a condensed summary** to the pattern/variation file's `## Problems` section using the Problem Summary Template, linking to the standalone file.
 7. **Update root README.md** if a new pattern or variation file was created.
+8. **Run `check.py`** (see "Verifying with check.py") and fix every ERROR before telling the user the note is done.
 
 Always preserve existing content. Never rewrite a whole file when only adding one entry.
 
@@ -69,6 +70,7 @@ Always preserve existing content. Never rewrite a whole file when only adding on
 2. **Decide single-file or folder.** Default to single-file. Use folder only if the user already knows there will be multiple variations.
 3. **Create the file** using the Pattern File Template.
 4. **Update root README.md.**
+5. **Run `check.py`** and fix every ERROR.
 
 ## Pattern File Template
 
@@ -223,7 +225,7 @@ Include ONLY if the problem has a genuine follow-up or natural extension — an 
 - [<num>] <name> — same pattern or core idea, different twist (need NOT already be in the notes — include other well-known/relevant problems too, each with a 1-line "why related")
 ```
 
-**Section discipline.** These ten H2 headings, in this order, are the only H2s a problem file may have. Six are required (Trigger Signals, Core Insight, Complexity Analysis, Solution Code, Pitfalls, Related Problems); four are optional (Why It's Correct, Alternatives / Optimization, Side Notes, Follow-ups) — omit an optional section entirely when there is nothing to put in it, never leave a placeholder. **Do not invent a new H2.** If content deserves its own title, make it a `###` under the canonical H2 it belongs to (e.g. `## Why It's Correct` → `### 為什麼反向 BFS 是對的`; `## Follow-ups` → `### 打 K 次牆會怎樣（LC 1293）`). Fixed heading names keep the notes greppable and comparable across problems; the freedom lives at the `###` level.
+**Section discipline.** These ten H2 headings, in this order, are the only H2s a problem file may have. Six are required (Trigger Signals, Core Insight, Complexity Analysis, Solution Code, Pitfalls, Related Problems); four are optional (Why It's Correct, Alternatives / Optimization, Side Notes, Follow-ups) — omit an optional section entirely when there is nothing to put in it, never leave a placeholder. **Do not invent a new H2.** If content deserves its own title, make it a `###` under the canonical H2 it belongs to (e.g. `## Why It's Correct` → `### 為什麼反向 BFS 是對的`; `## Follow-ups` → `### 打 K 次牆會怎樣（LC 1293）`). Fixed heading names keep the notes greppable and comparable across problems, and `check.py` rejects anything else; the freedom lives at the `###` level.
 
 ## README Maintenance
 
@@ -231,7 +233,7 @@ The root `README.md` is an auto-maintained index. Whenever a pattern file or var
 
 ### Procedure
 
-1. Scan `patterns/` directory. Order entries **alphabetically by their name under `patterns/`** (`dp` sorts as "dp" even though its title is "Dynamic Programming"; single files and folders are interleaved, not grouped). Variations inside a folder are alphabetical by filename too.
+1. Scan `patterns/` directory. Order entries **alphabetically by their name under `patterns/`, without the `.md` extension** (so `greedy` comes before `greedy-stack`; `dp` sorts as "dp" even though its title is "Dynamic Programming"; single files and folders are interleaved, not grouped). Variations inside a folder are alphabetical by filename too.
 2. For each entry:
    - If it's a single `.md` file → list as a single pattern link.
    - If it's a folder → list the folder's `README.md` as the main link, then list its variation `.md` files as nested bullets.
@@ -264,6 +266,22 @@ The root `README.md` is an auto-maintained index. Whenever a pattern file or var
 ```
 
 Always regenerate content **between** `<!-- INDEX START -->` and `<!-- INDEX END -->` markers; a regeneration never touches content outside them. The prose outside the markers (e.g. the 結構 section) does describe this skill's conventions, though — when a skill change makes it stale, tell the user and fix it as its own separate edit rather than leaving it to contradict the skill.
+
+## Verifying with check.py
+
+`check.py` sits next to this file and lints the whole repo against the conventions above. It has no dependencies:
+
+```
+python .claude/skills/leetcode-notes/check.py              # lint; exit code 1 if there is any ERROR
+python .claude/skills/leetcode-notes/check.py --fix-punct  # rewrite half-width punctuation in Chinese prose
+```
+
+Run it as the last step of every workflow that writes to `patterns/`, `problems/` or the root README — following the templates from memory is exactly how the notes drifted before.
+
+- **ERROR** means the notes are broken or off-template: broken relative link; problem file with no summary, more than one summary, or a `**Pattern:**` back-link that points at the wrong file; an H2 outside the canonical ten, duplicated, or out of order; a missing required section; legacy `## General Template`; a folder README whose `## Common Variations` misses a variation file; README index missing / listing a non-existent file / unsorted; Chinese inside a language-tagged code block you wrote. Fix all of these before reporting done.
+- **WARN** never fails the run: Chinese inside `## Solution Code` (legitimate only when it is the user's verbatim code — don't "fix" it), and half-width punctuation in Chinese prose (`--fix-punct` rewrites it; it never touches code fences, inline code, link targets, `O(n)`-style expressions or English bold labels — still skim the diff).
+
+If a convention in this skill changes, update `check.py` in the same commit so the two never disagree.
 
 ## Committing
 

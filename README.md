@@ -13,6 +13,8 @@
 
 解完一題後，告訴 Claude 題目與 pattern，會自動 append 到對應檔案；新增 pattern 或拆分變體前都會先確認。
 
+筆記格式由 `.claude/skills/leetcode-notes/SKILL.md` 定義，可用 `python .claude/skills/leetcode-notes/check.py` 檢查整個 repo 有沒有壞連結、漏摘要、跑掉的 section 或 index。
+
 <!-- INDEX START -->
 ## Patterns
 
