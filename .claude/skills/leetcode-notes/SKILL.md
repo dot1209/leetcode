@@ -86,10 +86,13 @@ Trigger signals — phrases or constraints in problems that hint at this pattern
 **Time:** O(...) — explain *why*, not just the number
 **Space:** O(...) — explain *why*
 
-## General Template
+## Template Code
 \`\`\`cpp
 // Minimal skeleton code for this pattern
 \`\`\`
+
+## Pitfalls
+Mistakes common to the whole pattern.
 
 ---
 
@@ -109,7 +112,7 @@ Trigger signals — phrases or constraints in problems that hint at this pattern
 ## Typical Complexity
 ...
 
-## General Template
+## Template Code
 \`\`\`cpp
 // Minimal skeleton
 \`\`\`
@@ -144,6 +147,17 @@ Mistakes specific to this variation.
 <problem summaries>
 ```
 
+### Optional and Free-form Sections (pattern & variation files)
+
+The headings in the templates above are the **required skeleton** and keep those exact names. `## Template Code` is the single name for skeleton code at every level (single-file, folder README, variation) — never `General Template`. A variation whose "template" is a comparison of approaches rather than one skeleton may omit it in favor of a free-form section.
+
+Beyond the skeleton, pattern and variation files may carry:
+
+- **Free-form insight sections** — any H2 with a descriptive title of its own (e.g. `## 記錄與縮放的兩個旋鈕`, `## Core Technique: Snapshot Before Mutation`, `## 為什麼這樣是對的`, `## 三個代表題的轉移對照`), placed between `## When to Use` and `## Pitfalls`. This is where the pattern's real insight lives: design decisions, comparison tables, correctness arguments, the mental model. Give that content a titled home instead of cramming it into `When to Use` or `Pitfalls`.
+- `## When NOT to Use` — optional, right after `## Pitfalls`. Look-alike signals that actually call for a different pattern.
+
+Free-form sections are for *pattern-level* insight only. Anything about a single problem belongs in that problem's file.
+
 ## Problem Summary Template
 
 Lives inside a pattern or variation file's `## Problems` section. Keep it tight — this is a digest, not the full write-up.
@@ -176,6 +190,9 @@ What in this specific problem pointed to this pattern/variation?
 ## Core Insight
 The key observation in 1–2 sentences.
 
+## Why It's Correct
+OPTIONAL. The correctness argument, when it is not obvious from the insight alone — greedy exchange argument, lower bound + achievability, why a reversed/transformed view is equivalent. Omit if Core Insight already covers it.
+
 ## Complexity Analysis
 Explain *why* the complexity is what it is. For example: nested loops that look O(n²) but are amortized O(n) because each pointer moves at most n times.
 
@@ -185,8 +202,14 @@ Explain *why* the complexity is what it is. For example: nested loops that look 
 \`\`\`
 If the problem has more than one solution worth knowing, add each as its own labeled block here (e.g. `### 寫法 1 — …`, `### 寫法 2 — …`), each with a one-line note on what technique it teaches / what it trades. The user's own solution stays verbatim as the primary block; only add an alternative when it's genuinely instructive (see the alternative-solutions rule) — never pad with a cosmetic rewrite.
 
+## Alternatives / Optimization
+OPTIONAL. Everything about code *other than* the verbatim solution above: other approaches (including the user's own earlier version), time/space optimizations, tidy-up suggestions that are not bugs. This is the "separate section outside the code block" that the code-preservation rule refers to. Use one `###` per alternative when there is more than one.
+
 ## Pitfalls
 Edge cases, off-by-one errors, easy mistakes encountered on this problem.
+
+## Side Notes
+OPTIONAL. Things learned along the way that are not about this problem's algorithm — language/STL behavior, a debugging story, a misconception cleared up.
 
 ## Follow-ups
 Include ONLY if the problem has a genuine follow-up or natural extension — an official "Follow-up:" line, or a well-known variation (e.g. a key constraint relaxed). State what the extension is and how it changes the approach (often: which assumption breaks). Do NOT invent one — omit this section entirely if there is no real follow-up.
@@ -194,6 +217,8 @@ Include ONLY if the problem has a genuine follow-up or natural extension — an 
 ## Related Problems
 - [<num>] <name> — same pattern or core idea, different twist (need NOT already be in the notes — include other well-known/relevant problems too, each with a 1-line "why related")
 ```
+
+**Section discipline.** These ten H2 headings, in this order, are the only H2s a problem file may have. Six are required (Trigger Signals, Core Insight, Complexity Analysis, Solution Code, Pitfalls, Related Problems); four are optional (Why It's Correct, Alternatives / Optimization, Side Notes, Follow-ups) — omit an optional section entirely when there is nothing to put in it, never leave a placeholder. **Do not invent a new H2.** If content deserves its own title, make it a `###` under the canonical H2 it belongs to (e.g. `## Why It's Correct` → `### 為什麼反向 BFS 是對的`; `## Follow-ups` → `### 打 K 次牆會怎樣（LC 1293）`). Fixed heading names keep the notes greppable and comparable across problems; the freedom lives at the `###` level.
 
 ## README Maintenance
 
@@ -239,7 +264,7 @@ Always regenerate content **between** `<!-- INDEX START -->` and `<!-- INDEX END
 ## Rules
 
 - **Preserve the user's own wording.** When the user describes their solution/thought process, build the notes around *their* phrasing and mental model (the exact words, analogies, and framing they used). Don't rewrite their explanation into your own voice — they remember their own words best. Polish and structure, but keep their language as the backbone.
-- **Keep the user's own code; never edit their code block.** When the user pastes working code, put *that exact code* in the Solution Code section verbatim (their structure, naming, indexing, comments). Do NOT substitute a cleaner rewrite, and do NOT edit inside their code block — any addition (tidy-up suggestion, bug warning, alternative) goes in a *separate* section outside the block. If you proposed a cleaner version in chat, the notes still follow whichever version the user adopted; they edit their own code. Your job around their block is to add commentary separately and to **flag bugs explicitly** (never silently fix — see the wording-preservation and error-flagging rules).
+- **Keep the user's own code; never edit their code block.** When the user pastes working code, put *that exact code* in the Solution Code section verbatim (their structure, naming, indexing, comments). Do NOT substitute a cleaner rewrite, and do NOT edit inside their code block — any addition goes in a *separate* section outside the block: alternatives, optimizations and tidy-up suggestions in `## Alternatives / Optimization`, bug warnings in `## Pitfalls`. If you proposed a cleaner version in chat, the notes still follow whichever version the user adopted; they edit their own code. Your job around their block is to add commentary separately and to **flag bugs explicitly** (never silently fix — see the wording-preservation and error-flagging rules).
 - **Explain motivation naturally — no rigid template.** Concept explanations should convey the *motivation* (what it is, why you'd reach for it) as flowing prose. Do NOT stamp fixed bold labels like 「他是什麼 / 為什麼需要他 / 他改變了什麼」 onto every section — that reads stiff and mechanical. Just explain the why in natural language; if the user gave their own description, use theirs.
 - **Point out the user's mistakes — don't silently fix them.** If the user's stated reasoning, complexity, code, or claim is wrong, flag it explicitly and explain the correction *before* writing it into the notes. Never quietly correct an error in the notes without telling them; they need to know they had it wrong so they can re-learn it.
 - **Flag a correct-but-suboptimal solution — passing ≠ optimal.** Separate from *errors*: if the user's code works but a materially better complexity exists (a lower time order, or the same time with less space), tell them and record the better approach in the write-up. But never overwrite their pasted code with the optimized version (per the code-preservation rule) — the faster solution lives in a separate section / the follow-up prose, their code stays verbatim. Make the distinction sharp: "this is wrong" (must fix) vs. "this works, but here's faster" (optional upgrade). Don't manufacture an "optimization" when the user's solution is already optimal — say it's optimal instead.
@@ -247,7 +272,7 @@ Always regenerate content **between** `<!-- INDEX START -->` and `<!-- INDEX END
 - **Keep complexity analysis explanatory.** Don't just write `O(n)`. Write *why*.
 - **Default code language: C++ or Python**, matching the user's stated preference. Ask if ambiguous.
 - **No Chinese in code comments.** Inside any code block (templates, solution code, snippets), comments must be in English regardless of the surrounding prose language. Markdown prose around the code can stay Chinese; only the `//` / `#` lines need to be English.
-- **Pattern-level insights > problem-level details.** When the user revisits notes, the pattern/variation file's `When to Use` and `Typical Complexity` sections should be the most polished part. Standalone problem files are reference material.
+- **Pattern-level insights > problem-level details.** When the user revisits notes, the pattern/variation file's `When to Use`, `Typical Complexity` and free-form insight sections should be the most polished part. Standalone problem files are reference material.
 - **Pattern files hold summaries, not full write-ups.** Each problem entry in a pattern/variation file is a 3-bullet digest (Trigger / Insight / Pitfall) with a link to the standalone problem file.
 - **Don't invent problems.** Only create problem *entries* (a standalone file + a `## Problems` summary) for problems the user explicitly mentions solving. This does NOT restrict `## Related Problems` pointers — those may link any genuinely related problem, noted or not (prefer the most relevant, with a 1-line why).
 - **Ask before creating a new pattern.** A new pattern is a commitment — confirm it's not just a variation of an existing one.
