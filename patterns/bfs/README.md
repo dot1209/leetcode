@@ -39,3 +39,4 @@ return -1;
 
 ## Common Variations
 - [Multi-source BFS](multi-source-bfs.md) — 一開始就把多個起點一起塞進 queue，同步往外擴散
+- [State-space BFS](state-space-bfs.md) — 座標不足以描述目前狀態時，把剩餘資源、bitmask 等一起納入 state 與 visited

@@ -30,6 +30,7 @@
 ### [BFS](patterns/bfs/README.md)
 按距離分層擴散的搜尋，邊權都相等時保證第一次到達即為最短。
 - [Multi-source BFS](patterns/bfs/multi-source-bfs.md)
+- [State-space BFS](patterns/bfs/state-space-bfs.md)
 
 ### [Dynamic Programming](patterns/dp/README.md)
 把重疊子問題用表記下來，避免重複計算；典型訊號是純 recursion 會 TLE。
