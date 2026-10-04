@@ -73,6 +73,6 @@ public:
 - **bitset 合法的前提是值域固定又小。** 這題 `0 <= nums[i] <= 100` 才能開 `bitset<101>`；若值域大或不連續，固定表會爆掉或浪費，要改用 `unordered_set`。
 
 ## Related Problems
-- [1189] Maximum Number of Balloons — 同 frequency-counting，一樣是「建計數表再從表推答案」，只是那題取 `min(have/need)`、這題數 distinct。
+- [[1189] Maximum Number of Balloons](max_number_of_balloons.md) — 同 frequency-counting，一樣是「建計數表再從表推答案」，只是那題取 `min(have/need)`、這題數 distinct。
 - [217] Contains Duplicate — 同樣用 set 追蹤相異元素，只是問「有沒有重複」而不是「有幾種」。
 - [1207] Unique Number of Occurrences — 先建頻率表，再看這些「出現次數」本身是否有重複，也是從計數表二次推答案。

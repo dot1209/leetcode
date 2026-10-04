@@ -117,6 +117,6 @@ LC30 官方沒有明列 follow-up；最自然的延伸是：**如果 `words` 不
 不等長的話三根全倒，就不再是乾淨的滑動視窗，而變成更一般的多模式配對（得換別的技巧，如回溯 / trie），難度高一截。等長正是讓這題「可滑動」的關鍵前提。
 
 ## Related Problems
-- [76] Minimum Window Substring — 同樣用 `formed` 計數，但 variable window + 字元粒度
+- [[76] Minimum Window Substring](minimum_window_substring.md) — 同樣用 `formed` 計數，但 variable window + 字元粒度
 - [567] Permutation in String / [438] Find All Anagrams — fixed window 找 anagram，字元粒度；一步一字元所以**沒有 offset 問題**
 - 對照記：LC76 先記後縮（`while` 合法才縮）；LC30 是 fixed window → `if` 縮、後記

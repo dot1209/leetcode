@@ -79,4 +79,4 @@ public:
 - **[994] Rotting Oranges** — 同模板；要回傳「最後一層的時間」所以需分層計數
 - **[1162] As Far from Land as Possible** — 同模板 + 取最大距離（最後一個被填到的就是離陸地最遠的水）
 - **[417] Pacific Atlantic Water Flow** — 同反向思路，但擴散規則是「逆流」而非 +1 距離
-- **[1293] Shortest Path in a Grid with Obstacles Elimination** — BFS 升級版：座標不足以代表狀態，要加 `(x, y, k_remaining)` 三維狀態
+- **[[1293] Shortest Path in a Grid with Obstacles Elimination](shortest_path_in_a_grid_with_obstacles_elimination.md)** — BFS 升級版：座標不足以代表狀態，要加 `(x, y, k_remaining)` 三維狀態

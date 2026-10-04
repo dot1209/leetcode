@@ -63,4 +63,4 @@ public:
 - [496] Next Greater Element I — 同骨架，pop 當下寫的是 `res[j] = nums[i]`（值而非差）
 - [739] Daily Temperatures — 同骨架，pop 當下寫的是 `res[j] = i - j`（距離）；留在 stack 的預設 0
 - [901] Online Stock Span — 同骨架但改成串流輸入，pop 時把被吃掉的 span 累加起來
-- [84] Largest Rectangle in Histogram — 同骨架但**兩側**邊界都要，因此需要左哨兵與末尾 flush
+- [[84] Largest Rectangle in Histogram](largest_rectangle_in_histogram.md) — 同骨架但**兩側**邊界都要，因此需要左哨兵與末尾 flush

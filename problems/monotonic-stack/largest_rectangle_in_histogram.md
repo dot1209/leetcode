@@ -89,4 +89,4 @@ pop 條件是嚴格小於，等高不 pop，所以等高的柱子會並存在 st
 - [85] Maximal Rectangle — 二維版，每列建直方圖後套用本題
 - [42] Trapping Rain Water — 同樣要左右邊界，但求的是**凹陷**不是凸起；注意它**不能**用哨兵（水需要真實的牆，stack 空掉時只能直接 break）
 - [907] Sum of Subarray Minimums — 同樣是「以 j 為最小值能延伸多遠」，但目標從 max 換成 sum，因此等值時**必須**非對稱破平手，否則同一個子陣列被算兩次
-- [1475] Final Prices With a Special Discount — 同骨架但只需右邊界，pop 當下直接相減
+- [[1475] Final Prices With a Special Discount in a Shop](final_prices_with_discount.md) — 同骨架但只需右邊界，pop 當下直接相減

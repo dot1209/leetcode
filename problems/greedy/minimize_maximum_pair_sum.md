@@ -47,4 +47,4 @@ public:
 - 回傳的是配對和的 **max**，不是 min、也不是總和——題目要的是「最小化的那個最大值」。
 
 ## Related Problems
-- [1833] Maximum Ice Cream Bars — 同屬 Greedy，但是「sort 後依預算逐一取用」的形式，跟本題「sort 後頭尾配對」是不同操作型態。
+- [[1833] Maximum Ice Cream Bars](max_ice_cream_bars.md) — 同屬 Greedy，但是「sort 後依預算逐一取用」的形式，跟本題「sort 後頭尾配對」是不同操作型態。

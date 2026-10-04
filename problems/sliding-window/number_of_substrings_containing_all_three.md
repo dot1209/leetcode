@@ -97,7 +97,7 @@ public:
 - **`atMost(K)` 家族**：因為 `s` 只含 a/b/c，「裝齊三種」⟺「**剛好 3 種 distinct**」= `atMost(3) − atMost(2)`。`atMost(K)` 視窗（每步加 `r - l + 1`，正是本題的上界鏡像）配上恆等式 `exactly(K) = atMost(K) − atMost(K-1)`，可解一大票「subarray／substring 恰好／至多 K 種」的題。
 
 ## Related Problems
-- [76] Minimum Window Substring — 同樣「裝齊一組目標字元」，但求最短而非計數；`formed` 計數器可直接套用。
+- [[76] Minimum Window Substring](minimum_window_substring.md) — 同樣「裝齊一組目標字元」，但求最短而非計數；`formed` 計數器可直接套用。
 - [3] Longest Substring Without Repeating Characters — variable window 計數入門，合法性反向（每字元至多 1 次）。
 - [340] Longest Substring with At Most K Distinct — `atMost(K)` 視窗本體。
 - [992] Subarrays with K Different Integers — `exactly(K) = atMost(K) − atMost(K-1)` 的代表題。

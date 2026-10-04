@@ -91,5 +91,5 @@ int minDistance(string word1, string word2) {
 ## Related Problems
 - [72] Edit Distance — 完整版（加上替換、插入），相等時同樣 `dp[i-1][j-1]`、不等時 `1 + min(三條)`
 - [1143] Longest Common Subsequence — 這題等價於 `m + n - 2·LCS`
-- [115] Distinct Subsequences — 同網格的 counting 版
+- [[115] Distinct Subsequences](distinct_subsequences.md) — 同網格的 counting 版
 - [712] Minimum ASCII Delete Sum — 把「刪除次數」換成「刪除字元的 ASCII 總和」
