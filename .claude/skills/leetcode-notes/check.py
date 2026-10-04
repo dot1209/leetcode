@@ -29,6 +29,8 @@ LAST_H2 = {"single": "Problems", "readme": "Common Variations", "variation": "Pr
 FENCE = re.compile(r"^\s*```(.*)$")
 LINK = re.compile(r"\]\(([^)\s]+)\)")
 SUMMARY = re.compile(r"^### \[\[(\d+)\] [^\]]+\]\(([^)]+)\)\s*$")
+RELATED_PLAIN = re.compile(r"^- (?:\*\*)?\[(\d+)\] ")
+RELATED_LINKED = re.compile(r"^- (?:\*\*)?\[\[(\d+)\] [^\]]+\]\(([^)]+)\)")
 CJK_IDEOGRAPH = re.compile(r"[㐀-䶿一-鿿]")
 
 errors, warns = [], []
@@ -176,7 +178,34 @@ def check_code_comments(path, lines, is_problem):
                 err(path, ln, "Chinese inside a code block - comments you write must be English")
 
 
-def check_problem(path, summaries):
+def check_related(path, lines, problem_numbers):
+    """## Related Problems: a link wraps the '[<num>] <name>' title and points at that number's note."""
+    for ln, line, inf, _, h2 in walk(lines):
+        if inf or h2 != "Related Problems" or not line.startswith("- "):
+            continue
+        lm = RELATED_LINKED.match(line)
+        if lm:
+            num, target = lm.groups()
+            if re.match(r"[a-z]+://|#|mailto:", target):
+                continue
+            t = (path.parent / target.split("#")[0]).resolve()
+            if not t.exists():
+                continue  # check_links reports the broken link
+            want = problem_numbers.get(num)
+            if want is None:
+                err(path, ln, f"Related Problems links [{num}], but no note is titled '# [{num}] ...'")
+            elif want != t:
+                err(path, ln, f"Related Problems link for [{num}] points at {target}; that number's note is {rel(want)}")
+            continue
+        if "](" in re.sub(r"`[^`]*`", "", line):
+            err(path, ln, "Related Problems link must wrap the '[<num>] <name>' title, not the description")
+            continue
+        pm = RELATED_PLAIN.match(line)
+        if pm and pm.group(1) in problem_numbers:
+            warn(path, ln, f"[{pm.group(1)}] has a note in the repo ({rel(problem_numbers[pm.group(1)])}) - link its title")
+
+
+def check_problem(path, summaries, problem_numbers):
     lines = lines_of(path)
     if not re.fullmatch(r"[a-z0-9]+(_[a-z0-9]+)*\.md", path.name) or re.match(r"\d+_", path.name):
         err(path, 1, "filename must be snake_case with no problem-number prefix")
@@ -219,6 +248,7 @@ def check_problem(path, summaries):
         err(path, 1, f"problem number [{m.group(1)}] differs from its summary [{holders[0][1]}]")
     check_links(path, lines)
     check_code_comments(path, lines, True)
+    check_related(path, lines, problem_numbers)
 
 
 def check_pattern(path, kind, summaries):
@@ -328,11 +358,16 @@ def main():
         if target not in known:
             for h, num, ln in holders:
                 err(h, ln, f"summary [{num}] links to a problem file that does not exist")
+    problem_numbers = {}  # '[<num>]' in a problem file's H1 -> that file
+    for q in problem_files:
+        m = re.match(r"# \[(\d+)\] ", lines_of(q)[0])
+        if m:
+            problem_numbers.setdefault(m.group(1), q.resolve())
     for q in problem_files:
         pattern_dir = q.parent.name
         if not (pdir / f"{pattern_dir}.md").exists() and not (pdir / pattern_dir).is_dir():
             err(q, 1, f"problems/{pattern_dir}/ has no matching pattern under patterns/")
-        check_problem(q, summaries)
+        check_problem(q, summaries, problem_numbers)
     check_readme_index([p for p, _ in pattern_files])
     for p in everything:
         punct_pass(p, False)
