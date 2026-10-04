@@ -93,7 +93,7 @@ private:
 Queue state 用 `tuple<int, int, int>` 時，可以直接寫 `auto [x, y, r] = q.front();`，比反覆 `get<0>()`、`get<1>()`、`get<2>()` 更容易讀。
 
 ## Related Problems
-- [286] Islands and Treasure (Walls and Gates) — [同一個 BFS 基礎](islands_and_treasure.md)，但 state 只有座標；1293 正好展示「座標不足時要擴 state」
+- [[286] Islands and Treasure (Walls and Gates)](islands_and_treasure.md) — 同一個 BFS 基礎，但 state 只有座標；1293 正好展示「座標不足時要擴 state」
 - [1091] Shortest Path in Binary Matrix — 單純 grid BFS，沒有額外資源 state，適合對照普通 2D visited
 - [864] Shortest Path to Get All Keys — state 擴成 `(x, y, keyMask)`；bitmask 代表目前持有的鑰匙
 - [847] Shortest Path Visiting All Nodes — state 擴成 `(node, visitedMask)`；位置相同但走過的節點集合不同就是不同 state
