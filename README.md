@@ -32,6 +32,9 @@
 - [Multi-source BFS](patterns/bfs/multi-source-bfs.md)
 - [State-space BFS](patterns/bfs/state-space-bfs.md)
 
+### [Binary Search on Answer](patterns/binary-search.md)
+用二分搜直接搜尋可能的 cost，透過單調的可行性判定找出第一個可行上限或最後一個可行下限。
+
 ### [Dynamic Programming](patterns/dp/README.md)
 把重疊子問題用表記下來，避免重複計算；典型訊號是純 recursion 會 TLE。
 - [0/1 Knapsack](patterns/dp/knapsack-01.md)
