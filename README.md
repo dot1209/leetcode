@@ -54,6 +54,9 @@
 ### [Heap / Priority Queue](patterns/heap.md)
 動態取集合極值；當每個 step 後集合會變動又得再次取極值時，比 sort 更划算。
 
+### [Intervals](patterns/intervals.md)
+處理依起點排序的區間；利用順序把資料拆成「左側、重疊、右側」三個 phase，避免對每個區間重做完整判斷。
+
 ### [Linked List](patterns/linked-list/README.md)
 操作 singly / doubly linked list；許多題能藉「改寫 node 指標欄位」達到 O(1) 額外空間。
 - [Deep Copy](patterns/linked-list/deep-copy.md)
