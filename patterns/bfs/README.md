@@ -38,5 +38,6 @@ return -1;
 兩個關鍵動作：**push 前標 visited**（不是 pop 後才標，否則同一節點會被多次入隊）、**第一次碰到就是答案**（後續再碰到不會更短，直接 skip）。
 
 ## Common Variations
+- [Graph Traversal](graph-traversal.md) — 不要求最短路，只需要從起點完整走訪 connected component；clone graph 時可用 original → copy mapping 同時當 visited
 - [Multi-source BFS](multi-source-bfs.md) — 一開始就把多個起點一起塞進 queue，同步往外擴散
 - [State-space BFS](state-space-bfs.md) — 座標不足以描述目前狀態時，把剩餘資源、bitmask 等一起納入 state 與 visited
