@@ -42,6 +42,7 @@
 - [Unbounded Knapsack](patterns/dp/knapsack-unbounded.md)
 - [String Partition](patterns/dp/string-partition.md)
 - [Two-Sequence](patterns/dp/two-sequence.md)
+- [Weighted Interval Scheduling](patterns/dp/weighted-interval-scheduling.md)
 
 ### [Frequency Counting](patterns/frequency-counting.md)
 先掃一遍把每個元素出現幾次記下來，再從計數表推答案；最常見形式是 bottleneck min——用一袋字元重複拼目標字，能拼幾組卡在最稀缺的字母上。
