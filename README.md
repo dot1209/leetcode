@@ -74,4 +74,7 @@
 字串為主要輸入、操作集中在字元層級而非 array random access；解析、模擬大數運算、模式比對等。
 - [Pattern Matching (KMP)](patterns/string/pattern-matching.md)
 - [Simulation](patterns/string/simulation.md)
+### [Topological Sort](patterns/topological-sort.md)
+依 directed dependencies 輸出合法順序；使用 indegree + Queue 或 DFS Postorder，並偵測 cycle。
+
 <!-- INDEX END -->
