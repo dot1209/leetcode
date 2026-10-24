@@ -36,6 +36,9 @@
 ### [Binary Search on Answer](patterns/binary-search.md)
 用二分搜直接搜尋可能的 cost，透過單調的可行性判定找出第一個可行上限或最後一個可行下限。
 
+### [DFS](patterns/dfs.md)
+沿路深入探索圖的可達性與路徑資訊；以 visited 避免重複拜訪，並用明確的遞迴回傳值傳遞搜尋結果。
+
 ### [Dynamic Programming](patterns/dp/README.md)
 把重疊子問題用表記下來，避免重複計算；典型訊號是純 recursion 會 TLE。
 - [0/1 Knapsack](patterns/dp/knapsack-01.md)
