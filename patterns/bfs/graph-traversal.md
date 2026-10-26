@@ -12,6 +12,11 @@
 
 把 queue 的入口條件固定成「合法且未看過的節點」，入隊時立即標記，出隊時就能專心處理節點與探索鄰居。起點也必須遵守同一條規則。若允許修改 grid，可用原地值取代 visited；這省掉 visited 陣列，但 queue 的空間仍須計入。
 
+## 入隊標記與出隊處理
+標記與處理是不同動作：入隊前標記 visited，防止同一節點被重複發現；出隊時再累加值或執行主要操作。維持「queue 裡都是合法且已標記的節點」，並逐一檢查所有入隊入口，包含起點，能幫助找出註解與實作不一致的地方。
+
+如果原地標記會覆寫後續還需要的數值，必須先保存或累加原值，再改寫格子。省掉 visited 不代表整體空間一定降為 O(1)，仍需計入 queue。
+
 ## Template Code
 ```cpp
 queue<Node*> q;
@@ -54,3 +59,9 @@ while (!q.empty()) {
 - **Trigger:** 找出 grid 中由 `0` 組成、且被 `1` 包圍的 connected components
 - **Insight:** 一次 BFS 走完整個 component，記錄是否碰到網格邊界；只有 `0`、`1` 時，不碰邊界就代表封閉
 - **Pitfall:** 起點與鄰居都要在入隊時標記；碰到邊界也要繼續走完，邊界索引是 `m - 1`、`n - 1`
+
+### [[3619] Count Islands With Total Value Divisible by K](../../problems/bfs/count_islands_with_total_value_divisible_by_k.md)
+**Complexity:** Time O(mn), Space O(mn)
+- **Trigger:** 找非零格子的 connected components，計算總值可被 k 整除的島嶼數量
+- **Insight:** 一次 BFS 累加整座島；入隊標記、出隊處理，每格最多入隊一次，因此所有 BFS 合計 O(mn)
+- **Pitfall:** 外層跳過 0 不代表 BFS 也會跳過；鄰居也要檢查非零，原地清成 0 前則要先累加原值
