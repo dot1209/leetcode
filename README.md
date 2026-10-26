@@ -26,6 +26,7 @@
 ### [Backtracking](patterns/backtracking/README.md)
 列舉解空間的樹狀搜尋，核心是「make choice → recurse → undo」。
 - [Grid Backtracking](patterns/backtracking/grid-backtracking.md)
+- [Subsets / Permutations](patterns/backtracking/subsets-permutations.md)
 
 ### [BFS](patterns/bfs/README.md)
 按距離分層擴散的搜尋，除了等權最短路，也可用來完整走訪 connected component。

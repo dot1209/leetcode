@@ -31,3 +31,4 @@ void backtrack(State& state, /* problem-specific args */) {
 
 ## Common Variations
 - [Grid Backtracking](grid-backtracking.md) — 在 2D grid 上 DFS，需 mark visited + restore
+- [Subsets / Permutations](subsets-permutations.md) — 用 start 或 used 記錄選擇，列舉子集、組合與排列
