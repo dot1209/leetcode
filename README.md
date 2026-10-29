@@ -42,6 +42,7 @@
 
 ### [Dynamic Programming](patterns/dp/README.md)
 把重疊子問題用表記下來，避免重複計算；典型訊號是純 recursion 會 TLE。
+- [Grid State Reachability](patterns/dp/grid-state-reachability.md)
 - [0/1 Knapsack](patterns/dp/knapsack-01.md)
 - [Unbounded Knapsack](patterns/dp/knapsack-unbounded.md)
 - [String Partition](patterns/dp/string-partition.md)
