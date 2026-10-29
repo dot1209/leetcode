@@ -249,5 +249,5 @@ Graph 使用 unordered_map<string, unordered_map<string, double>>，只儲存存
 
 ## Related Problems
 - [1971] Find if Path Exists in Graph — 相同的可達性搜尋，移除比值與權重後只需回傳是否連通。
-- [133] Clone Graph — 以 visited 或 original-to-copy mapping 保證每個節點只展開一次。
+- [[133] Clone Graph](../bfs/clone_graph.md) — 以 visited 或 original-to-copy mapping 保證每個節點只展開一次。
 - [721] Accounts Merge — 從共同關係建立 connected components，也可用 DFS 或 Union-Find 分組。

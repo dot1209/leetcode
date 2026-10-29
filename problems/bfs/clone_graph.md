@@ -113,6 +113,6 @@ DFS 的重點是先 `mp.emplace(node, copy)`，再 recurse neighbors。這樣 cy
 面試收尾可用最小 non-trivial case，例如 `1 - 2 - 3` dry run。這次 BFS 的實作 slip 就能在這個 case 立刻看出來：如果 `2` 沒有 enqueue，就永遠不會處理 `2 -> 3`。
 
 ## Related Problems
-- [138] Copy List with Random Pointer — 同樣需要 old node → copied node mapping，避免同一個節點被複製多次。
+- [[138] Copy List with Random Pointer](../linked-list/copy_list_with_random.md) — 同樣需要 old node → copied node mapping，避免同一個節點被複製多次。
 - [200] Number of Islands — 同樣是 traversal + visited，但資料結構改成 grid。
 - [323] Number of Connected Components in an Undirected Graph — graph 不保證 connected 時，要從每個尚未訪問的 node 啟動 traversal。

@@ -126,5 +126,5 @@ public:
 - **`new` dummy vs stack dummy**：用 `Node dummy(0)` 放 stack 上避免 leak（LC 不查但好習慣）
 
 ## Related Problems
-- [133] Clone Graph — 同樣是 deep copy 含非線性指標的結構，但是 graph 不是 list，只能用 hashmap + DFS/BFS
+- [[133] Clone Graph](../bfs/clone_graph.md) — 同樣是 deep copy 含非線性指標的結構，但是 graph 不是 list，只能用 hashmap + DFS/BFS
 - [430] Flatten a Multilevel Doubly Linked List — 多層 list 攤平，類似的「指標重接」訓練

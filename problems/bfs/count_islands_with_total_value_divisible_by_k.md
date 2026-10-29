@@ -122,6 +122,6 @@ q.push({nx, ny});
 `vector<vector<int>> visit(m, vector<int>(n, 0));` 本身合法。最初寫成 `int countIslands(vector<vector<int>>& grid, int k) {}`，已經把函式關閉，後續敘述落在 class scope 才導致編譯錯誤。將右大括號移到 `return res;` 後；另外 bfs 參數列的 `int k` 後也要有逗號。
 
 ## Related Problems
-- [1254] [Number of Closed Islands](number_of_closed_islands.md) — 同樣走完整個 component，再判斷是否符合條件；該題的 0 代表陸地。
+- [[1254] Number of Closed Islands](number_of_closed_islands.md) — 同樣走完整個 component，再判斷是否符合條件；該題的 0 代表陸地。
 - [200] Number of Islands — 只數陸地 components，不需要額外計算島嶼總值。
 - [695] Max Area of Island — 遍歷時累計面積，與本題累加格子數值使用相同結構。

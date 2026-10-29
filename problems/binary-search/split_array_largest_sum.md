@@ -214,6 +214,6 @@ DP 只依賴上一個組數 g 的那一層，可以保留前後兩列，把額�
 
 ## Related Problems
 
-- [1011] [Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/) — 按原順序運貨，搜尋最小容量；greedy 判定所需天數，核心與本題相同。
-- [1231] [Divide Chocolate](https://leetcode.com/problems/divide-chocolate/) — 連續分組但改成最大化最小 sum，對照可行性的方向與切割時機。
-- [875] [Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) — 搜尋最小可行速度，判定改成累加每堆需要的時間。
+- [[1011] Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/) — 按原順序運貨，搜尋最小容量；greedy 判定所需天數，核心與本題相同。
+- [[1231] Divide Chocolate](https://leetcode.com/problems/divide-chocolate/) — 連續分組但改成最大化最小 sum，對照可行性的方向與切割時機。
+- [[875] Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) — 搜尋最小可行速度，判定改成累加每堆需要的時間。

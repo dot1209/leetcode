@@ -19,7 +19,7 @@ subsets 就是 combinations 的家族，跟 [Combination Sum](combination_sum.md
 - **Time O(n·2^n)**：一共 2^n 個 subset，每個 `push_back(cur)` 要 copy 目前路徑、花 O(n)。兩種 backtracking 樹形節點數不同（for-loop 版 2^n 個節點全推；二元樹版 2^(n+1)−1 個節點但只有 2^n 個 leaf 推），總 copy 成本都是 O(n·2^n)。bitmask 版外層 2^n × 內層 n 也是 O(n·2^n)。
 - **Space O(n)（backtracking，auxiliary）**：遞迴深度 ≤ n，加上 `cur` 最多裝 n 個元素——都被 n 界住。**注意**：這裡的 O(n) 是「不含 output」的額外空間；連 output 一起算是 O(n·2^n)。「每個元素出現或不出現」解釋的是**為什麼有 2^n 個 subset**（時間/數量），不是空間 O(n) 的來源。
 - **Space O(1)（bitmask，auxiliary）**：沒有遞迴 stack、沒有 `cur` buffer，直接對每個 bitmask 寫進 `res`，額外空間 O(1)（一樣不計 output）。
-- 時間下界：光把答案寫出來就是 Θ(n·2^n)，所以 O(n·2^n) 已是最佳，三種寫法時間同階。
+- 時間下界：光把答案寫出來就是 `Θ(n·2^n)`，所以 O(n·2^n) 已是最佳，三種寫法時間同階。
 
 ## Solution Code
 
