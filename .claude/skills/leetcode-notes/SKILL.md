@@ -60,7 +60,7 @@ When the user describes a solved problem:
 5. **Create the standalone problem file** at `problems/<pattern>/<problem_name>.md` using the Problem File Template. If the problem has a genuine follow-up / natural extension, record it in the Follow-ups section (never invent one).
 6. **Append a condensed summary** to the pattern/variation file's `## Problems` section using the Problem Summary Template, linking to the standalone file.
 7. **Update root README.md** if a new pattern or variation file was created.
-8. **Run `check.py`** (see "Verifying with check.py") and fix every ERROR before telling the user the note is done.
+8. **Run `check.py`** (see "Verifying with check.py") and fix every ERROR before telling the user the note is done. Inspect any remaining WARN to confirm it comes only from the user's verbatim Solution Code.
 
 Always preserve existing content. Never rewrite a whole file when only adding one entry.
 
@@ -70,7 +70,7 @@ Always preserve existing content. Never rewrite a whole file when only adding on
 2. **Decide single-file or folder.** Default to single-file. Use folder only if the user already knows there will be multiple variations.
 3. **Create the file** using the Pattern File Template.
 4. **Update root README.md.**
-5. **Run `check.py`** and fix every ERROR.
+5. **Run `check.py`** and fix every ERROR; inspect any remaining WARN.
 
 ## Pattern File Template
 
@@ -226,7 +226,7 @@ Include ONLY if the problem has a genuine follow-up or natural extension — an 
 - [[<num>] <name>](<relative-path-to-its-problem-file>) — same bullet, but linked: use this form whenever the related problem already has its own note in the repo
 ```
 
-**Related Problems links.** Every bullet is `[<num>] <name> — <1-line why>`. When the related problem already has a file under `problems/`, the link wraps exactly the `[<num>] <name>` title — the same shape as a `## Problems` summary heading — and the "why" stays plain text: `- [[286] Islands and Treasure (Walls and Gates)](islands_and_treasure.md) — 同一個 BFS 基礎，但 state 只有座標`. Never hang the link on the description, and never link a problem that has no note — a plain `[<num>] <name>` is the right form for problems outside the repo. Spell the title the way that note's H1 does, and the number must agree with it. Before writing the section, grep `problems/` for each number you list so every in-repo problem gets linked (`check.py` warns when one is left plain).
+**Related Problems links.** Every bullet is `[<num>] <name> — <1-line why>`. When the related problem already has a file under `problems/`, the link wraps exactly the `[<num>] <name>` title — the same shape as a `## Problems` summary heading — and the "why" stays plain text: `- [[286] Islands and Treasure (Walls and Gates)](islands_and_treasure.md) — 同一個 BFS 基礎，但 state 只有座標`. Never hang the link on the description, and never link a problem that has no note — a plain `[<num>] <name>` is the right form for problems outside the repo. Spell the title the way that note's H1 does, and the number must agree with it. Before writing the section, grep `problems/` for each number you list so every in-repo problem gets linked (`check.py` fails when one is left plain).
 
 **Section discipline.** These ten H2 headings, in this order, are the only H2s a problem file may have. Six are required (Trigger Signals, Core Insight, Complexity Analysis, Solution Code, Pitfalls, Related Problems); four are optional (Why It's Correct, Alternatives / Optimization, Side Notes, Follow-ups) — omit an optional section entirely when there is nothing to put in it, never leave a placeholder. **Do not invent a new H2.** If content deserves its own title, make it a `###` under the canonical H2 it belongs to (e.g. `## Why It's Correct` → `### 為什麼反向 BFS 是對的`; `## Follow-ups` → `### 打 K 次牆會怎樣（LC 1293）`). Fixed heading names keep the notes greppable and comparable across problems, and `check.py` rejects anything else; the freedom lives at the `###` level.
 
@@ -281,8 +281,8 @@ python .claude/skills/leetcode-notes/check.py --fix-punct  # rewrite half-width 
 
 Run it as the last step of every workflow that writes to `patterns/`, `problems/` or the root README — following the templates from memory is exactly how the notes drifted before.
 
-- **ERROR** means the notes are broken or off-template: broken relative link; problem file with no summary, more than one summary, or a `**Pattern:**` back-link that points at the wrong file; an H2 outside the canonical ten, duplicated, or out of order; a missing required section; legacy `## General Template`; a folder README whose `## Common Variations` misses a variation file; README index missing / listing a non-existent file / unsorted; a `## Related Problems` link that is not wrapped around the `[<num>] <name>` title, or whose number is not the one in the linked note's H1; Chinese inside a language-tagged code block you wrote. Fix all of these before reporting done.
-- **WARN** never fails the run: Chinese inside `## Solution Code` (legitimate only when it is the user's verbatim code — don't "fix" it), a `## Related Problems` bullet whose problem has its own note in the repo but is left unlinked, and half-width punctuation in Chinese prose (`--fix-punct` rewrites it; it never touches code fences, inline code, link targets, `O(n)`-style expressions or English bold labels — still skim the diff).
+- **ERROR** means a required convention is violated: broken relative link; problem file with no summary, more than one summary, or a `**Pattern:**` back-link that points at the wrong file; an H2 outside the canonical ten, duplicated, or out of order; a missing required section; legacy `## General Template`; a folder README whose `## Common Variations` misses a variation file; README index missing / listing a non-existent file / unsorted; a `## Related Problems` link that is malformed, points at the wrong number, or leaves an already-noted problem unlinked; half-width punctuation in Chinese prose (`--fix-punct` can rewrite it, but skim the diff); Chinese inside a language-tagged code block you wrote. Fix all of these before reporting done.
+- **WARN** never fails the run: Chinese inside `## Solution Code`, legitimate only when it is the user's verbatim code. Inspect each warning rather than silently changing user code.
 
 If a convention in this skill changes, update `check.py` in the same commit so the two never disagree.
 

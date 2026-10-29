@@ -4,8 +4,8 @@
     python .claude/skills/leetcode-notes/check.py              # lint, exit 1 on any ERROR
     python .claude/skills/leetcode-notes/check.py --fix-punct  # rewrite half-width punctuation in Chinese prose
 
-ERROR = the notes are structurally broken or off-template; fix before finishing.
-WARN  = style drift worth a look (never fails the run).
+ERROR = the notes violate a required convention; fix before finishing.
+WARN  = Chinese in verbatim user Solution Code; inspect before finishing.
 No third-party dependencies.
 """
 import re
@@ -150,7 +150,7 @@ def punct_pass(path, fix):
         if new != line:
             hits += 1
             if not fix:
-                warn(path, ln, "half-width punctuation in Chinese prose (run with --fix-punct)")
+                err(path, ln, "half-width punctuation in Chinese prose (run with --fix-punct)")
         out.append(new)
     if fix and hits:
         path.write_text("\n".join(out), encoding="utf-8", newline="\n")
@@ -202,7 +202,7 @@ def check_related(path, lines, problem_numbers):
             continue
         pm = RELATED_PLAIN.match(line)
         if pm and pm.group(1) in problem_numbers:
-            warn(path, ln, f"[{pm.group(1)}] has a note in the repo ({rel(problem_numbers[pm.group(1)])}) - link its title")
+            err(path, ln, f"[{pm.group(1)}] has a note in the repo ({rel(problem_numbers[pm.group(1)])}) - link its title")
 
 
 def check_problem(path, summaries, problem_numbers):
