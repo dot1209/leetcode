@@ -32,6 +32,11 @@ while (!pq.empty()) {
 }
 ```
 
+## 候選的加入順序與取用順序
+排程或區間查詢可以依 `start` 排序，用指標把已開始的項目加入 heap。排序決定「何時能選」，heap key 決定「能選的項目裡先選誰」，兩者可以不同。例如活動從 `startDay` 開始可選，但取用時優先考慮最早的 `endDay`。
+
+取 heap top 前先清除不再合法的候選。當 heap 空且下一個項目尚未開始時，可跳到下一個開始時刻；指標走到尾端只代表已沒有新候選，heap 裡的項目仍須處理。
+
 ## Pitfalls
 - **同輪內不能立刻 push 回去**：若一輪要從 heap 取多個不同元素，pop 出來後要先暫存，整輪結束再 push 回，否則同一個元素可能在同輪被取兩次
 - **`priority_queue` 預設是 max-heap**，跟很多語言（Python `heapq` 是 min-heap）相反，min-heap 要明寫 `greater<>`
@@ -46,3 +51,9 @@ while (!pq.empty()) {
 - **Trigger:** 每一輪都要挑「當下頻率最高的任務」→ 動態取極值
 - **Insight:** 每 `n+1` 個 slot 為一輪，整輪先從 heap pop 出最多 `n+1` 個不同任務各執行一次，剩餘頻率 > 0 的等該輪結束再 push 回；避免同任務在同輪被取兩次
 - **Pitfall:** 最後一輪不必補 idle — pq 空了就只算實際執行的任務數，不是固定 `n+1`
+
+### [[1353] Maximum Number of Events That Can Be Attended](../problems/heap/maximum_number_of_events_that_can_be_attended.md)
+**Complexity:** Time O(N log N), Space O(N)
+- **Trigger:** 每個活動只占可用區間內一天；每天從已開始且未過期的候選中選一個。
+- **Insight:** 依 `startDay` 排序加入活動，min-heap 依 `endDay` 選最早到期者；無候選時跳到下一個開始日。
+- **Pitfall:** 同一天先加入全部新活動並清過期，再選一個；輸入掃完後仍要處理 heap 裡的候選。
