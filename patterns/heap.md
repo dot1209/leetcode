@@ -37,10 +37,28 @@ while (!pq.empty()) {
 
 取 heap top 前先清除不再合法的候選。當 heap 空且下一個項目尚未開始時，可跳到下一個開始時刻；指標走到尾端只代表已沒有新候選，heap 裡的項目仍須處理。
 
+## Dijkstra：累積距離、Relaxation 與最終確定
+
+Dijkstra 使用 Min-Heap 依照**從 Source 到節點的累積成本（Tentative Distance）**決定探索順序，而不是依照單條 Edge Weight。前者求 Single-Source Shortest Path；後者則像 Prim's MST 的選邊準則。
+
+- `dist[v]` 可以在 Relaxation 時更新：它是目前找到的最佳候選值，不代表已定案。
+- 當 `(cost, v)` 以 `cost == dist[v]` 從 Min-Heap Pop 出來時，在**非負權重**前提下，`dist[v]` 才確定是最短距離。
+- Lazy Heap 不必刪掉舊 Entry。如果 `cost > dist[v]`，這筆 Stale Entry 已被更低成本支配，直接跳過。
+- 只有 `newCost < dist[v]` 才更新並 Push。若對每條 Edge 都無條件 Push，Cycle 可能讓 Queue 永遠不清空。
+- 需要所有節點距離時，讓 Heap 清空，再檢查不可達節點；只求單一終點時，可以在該終點以最新 Entry 被 Pop 時提早結束。
+
+**Correctness：** 反證若 Pop 出 `u` 的成本 `d` 還不是最短，取更短路徑上第一個尚未確定距離的節點 `x`。其前驅已處理過，且權重非負，故 `x` 應已有小於 `d` 的候選距離，應先於 `u` Pop，矛盾。
+
+**Complexity：** Lazy PQ 在 E 條邊上最多有 E 次成功 Relaxation，加起點共至多 E + 1 次 Push，Heap 操作為 O(log(E + 1))。整體 Time O(V + E log(E + 1))、Space O(V + E)。
+
+**English：** Dijkstra pops the node with the smallest tentative distance. Because all edge weights are non-negative, a cheaper path through any unsettled node would have caused that node to be popped first. Therefore, a non-stale node's shortest distance is finalized when it is popped.
+
 ## Pitfalls
 - **同輪內不能立刻 push 回去**：若一輪要從 heap 取多個不同元素，pop 出來後要先暫存，整輪結束再 push 回，否則同一個元素可能在同輪被取兩次
 - **`priority_queue` 預設是 max-heap**，跟很多語言（Python `heapq` 是 min-heap）相反，min-heap 要明寫 `greater<>`
 - **`auto [_, v] : mp` 的 `_` 不是 wildcard**，只是普通變數名，編譯器只把它當一個叫 `_` 的變數
+- **Dijkstra 的 Min-Heap Key 寫成單條 Edge Weight**：必須放從 Source 到節點的累積 Cost，否則混淆成 Prim。
+- **Relaxation 時只 Push 不更新 dist，或無條件 Push**：會造成重複展開，Cycle 還可能無限延伸；更新 `dist` 與 PQ Entry 必須成對進行。
 
 ---
 
@@ -57,3 +75,9 @@ while (!pq.empty()) {
 - **Trigger:** 每個活動只占可用區間內一天；每天從已開始且未過期的候選中選一個。
 - **Insight:** 依 `startDay` 排序加入活動，min-heap 依 `endDay` 選最早到期者；無候選時跳到下一個開始日。
 - **Pitfall:** 同一天先加入全部新活動並清過期，再選一個；輸入掃完後仍要處理 heap 裡的候選。
+
+### [[743] Network Delay Time](../problems/heap/network_delay_time.md)
+**Complexity:** Time O(V + E log(E + 1)), Space O(V + E)
+- **Trigger:** 單一起點訊號傳遍所有節點，邊權非負，求所有節點最短距離的最大值。
+- **Insight:** 以 `(累積成本, node)` 做 Min-Heap Key；每次成本改善時同步更新 `dist` 並 Push，非最新的 Entry Pop 時跳過。
+- **Pitfall:** 不能用單條 Edge Weight 排序，也不能無條件 Push 鄰居；只有成功 Relaxation 才能產生新 Entry。
