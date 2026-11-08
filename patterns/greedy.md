@@ -31,6 +31,18 @@ for (int x : items) {
 return count;
 ```
 
+## Greedy 的另一種形式：各長度的最小結尾（LIS）
+
+Greedy 不只是在排序後依序取用，也可以維護**每一種可達長度的最佳代表狀態**。若兩條 Subsequence 長度相同，結尾較小者在未來接上更大元素時，至少和結尾較大者一樣有利；因此可以只保留「長度 `k+1` 的最小結尾」`tails[k]`，丟掉被支配的較大結尾。
+
+- **State Invariant：** `tails[k]` 是已掃描前綴中，所有長度恰好為 `k+1` 的嚴格遞增子序列之最小結尾。每一格都對應一條真實合法的 Subsequence，但不同格不一定來自同一條，所以 `tails` 本身不一定是合法 LIS。
+- **Binary Search：** `tails` 沿 `k` 嚴格遞增；每個新數字 `x`，若 `x > tails.back()` 就新增長度，否則以 `lower_bound` 找第一個 `>= x` 的位置替換。相等不延伸，避免破壞 Strict Increasing。
+- **兩種單調性：** 不同長度的最小結尾嚴格增加；固定長度的最小結尾隨時間只會下降或持平。
+- **Correctness：** 不高估，因為每格都有一條合法 Witness；不低估，因為任何真實 LIS 的第 `r` 個元素 `a_r` 出現時，長度 `r-1` 的最小結尾不大於 `a_{r-1} < a_r`，因此長度 `r` 必可達成。
+- **Complexity：** 單趟掃描 N 個元素，每個 Binary Search O(log N)，Time O(N log N)、Space O(N)。
+
+**English：** For each possible subsequence length, keep the minimum attainable ending value. A smaller ending value dominates a larger one of the same length, preserving future extension opportunities. Binary search finds the first tail greater than or equal to the new element.
+
 ## Pitfalls
 - **先證明再貪心。** 看到「最多／最少」就 sort+greedy 很危險——一定要先確認 exchange argument 成立（決策彼此獨立）。否則就是該用 DP 的題目被當成 greedy 寫，會 WA。
 - **sort 的 key / 方向要對。** 「買最多支」是 ascending（便宜先）；「在 deadline 內排最多工作」可能要 by deadline 或 by end-time，搞錯方向整題就錯。
@@ -57,3 +69,9 @@ return count;
 - **Trigger:** 操作「挑兩個取 element-wise max」可做任意多次，問能否拼出 target → 不是最佳化，是**可行性判定**
 - **Insight:** merge = element-wise max，所以可達結果 = 某 subset 的 max → 別模擬過程；monotone 讓 overshoot 永久不可逆 → 先 filter 掉任一軸超標的，再檢查三軸各有人 `== target`（`x && y && z`）
 - **Pitfall:** 想用 `cur` 累加器模擬整個 merge 流程會死（`cur=triplets[0]` 可能本身超標又救不回）；正解是「描述可達集合」而非模擬，sort 在這題無用
+
+### [[300] Longest Increasing Subsequence](../problems/greedy/longest_increasing_subsequence.md)
+**Complexity:** Time O(n log n), Space O(n)
+- **Trigger:** 嚴格遞增的最長 Subsequence，既要保持原序，又要優化 O(n²) DP。
+- **Insight:** `tails[k]` 保存長度 `k+1` 的最小結尾；大於尾端就 push，否則 `lower_bound` 替換，雖非實際 LIS，但 `tails.size()` 等於 LIS 長度。
+- **Pitfall:** `tails` 不一定是合法 subsequence；嚴格遞增要用 `lower_bound`，相等不能增加長度，替換也可能發生在中間。
