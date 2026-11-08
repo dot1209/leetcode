@@ -61,6 +61,19 @@ for (int r = 0; r < (int)s.size(); r++) {
 - 可能要好幾步 → `while`。變動視窗加一個元素可能要連縮多格才恢復（如 LC3、LC76）。
 - `while` 是安全預設（該 `if` 的地方用 `while` 也只跑一次）；`if` 用錯（該 `while` 卻 `if`）會留下不合法視窗 → bug。**不確定就 `while`。**
 
+## 負數使 Sliding Window 失效時：Prefix Sum + Monotonic Deque
+
+一般 Variable Sliding Window 的兩端可按特定節奏移動，是因為其合法性對視窗增減具有可利用的**單調性**。若陣列含負數，右端擴大時 Sum 可能降低、左端縮小時 Sum 可能提高；因此要求「Sum ≥ k 的最短 Subarray」時，普通 Sliding Window 不能直接用。
+
+LC 862 轉而維護 Prefix Sum：`prefix_sum[r]-prefix_sum[l] >= k`。Deque 保存**歷史 Prefix Index**，Index 由小到大、對應 Prefix Sum 嚴格遞增：
+
+- **`pop_back()` — Dominance：** 新候選 Index 較大且 Prefix Sum 較小或相等（`prefix_sum[r] <= prefix_sum[dq.back()]`），未來若舊候選合法，新候選也合法且長度更短，所以淘汰舊候選。
+- **`pop_front()` — Finalization：** 當 `prefix_sum[r]-prefix_sum[dq.front()] >= k`，先記錄 `r-dq.front()`，再移除該左界；未來用同一左界只會形成更長的 Subarray。
+
+這**不是一般意義的單一實體視窗**：Deque 是多個尚未被支配、尚未結算的左界候選。對照 LC 239：兩題都用 Monotonic Deque，但 239 的 Front 因固定視窗過期而移除，862 的 Front 則因已找到合法答案而移除。
+
+兩個 `while` 合計仍為 Amortized O(n)，因為每個 Index 最多 Push 一次、Pop 一次。
+
 ## Pitfalls
 - **`unordered_map::operator[]` 會偷插 key**：`if (cnt[c] == need[c])` 裡若 `c` 不存在，`need[c]` 會被插入一個 0，讓 `need.size()` 莫名變大。若你拿 `need.size()` 當判斷基準（`formed == need.size()`），它會一路膨脹導致條件永遠不成立 → WA。解法：（a）用 `int[128]` 陣列（沒有「key 不存在」這回事），或 (b) 開頭就把 `required = need.size()` 存起來、之後別再讀 `.size()`，查詢用 `.count()` / `.find()`。
 - **`formed++` 用 `==` 不是 `>=`**：只有「剛好達標」那一次才 +1，否則同字元多進來會重複加。
@@ -95,3 +108,9 @@ for (int r = 0; r < (int)s.size(); r++) {
 - **Trigger:** 字串只含 a/b/c，**數**有幾個 substring 同時含齊三種 → sliding window 的計數變體（求個數，非求最長/最短）
 - **Insight:** 固定右端點 r、數「以 r 結尾的合法起點」個數再加總；兩解皆可——縮放視窗 `res += l`（`l` 是 `[0,l)` 開區間右界），或記最後出現位置 `res += min(last)+1`（`min(last)=L` 是 `[0,L]` 閉區間）；兩者 `l == L+1`，差別只是開/閉區間慣例
 - **Pitfall:** 開區間 `l` 天生沒 +1，別寫成 `l+1`；`int last[3] = {-1}` 只設成 `{-1,0,0}` 而非全 -1（aggregate 初始化不廣播）
+
+### [[862] Shortest Subarray with Sum at Least K](../problems/sliding-window/shortest_subarray_with_sum_at_least_k.md)
+**Complexity:** Time O(n), Space O(n)
+- **Trigger:** 陣列含負數，要求 Sum ≥ k 的最短非空 Subarray，普通 Sliding Window 不再適用。
+- **Insight:** Prefix Sum + Monotonic Deque 存候選 Index；`pop_back` 依 Dominance，`pop_front` 依已結算的最早合法右界。
+- **Pitfall:** `pop_back` 用 `<=`、Prefix Sum 需 `n+1` 與初始 0、長度用 `r-l`，且 Prefix Sum 應是 `long long`。
