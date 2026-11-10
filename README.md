@@ -72,6 +72,9 @@
 ### [Monotonic Stack](patterns/monotonic-stack.md)
 用單調的 stack 存住「還在等答案的元素」，pop 的那一刻就是答案定案的那一刻；用於 next greater / smaller 與「以某元素為極值能延伸多遠」類問題。
 
+### [Prefix Sum](patterns/prefix-sum.md)
+把連續區間轉成兩個前綴狀態的差；搭配 Hash Map 的最早 Index／Frequency，或 Monotonic Deque 管理歷史候選。
+
 ### [Sliding Window](patterns/sliding-window.md)
 用左右指針框出連續區間並隨掃描滑動，把「枚舉所有 subarray/substring」壓成線性掃描；靠增量維護視窗狀態避免重算。
 
