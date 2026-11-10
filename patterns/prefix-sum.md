@@ -49,3 +49,9 @@ for (int r = 1; r <= n; ++r) {
 ---
 
 ## Problems
+
+### [[525] Contiguous Array](../problems/prefix-sum/contiguous_array.md)
+**Complexity:** Time O(n) expected, Space O(n)
+- **Trigger:** 連續 0/1 Subarray 要求兩種數量相同，直接 Sliding Window 縮窗會漏掉未來重新平衡的區間。
+- **Insight:** 把 `0→-1`、`1→+1`，轉成 Sum = 0；相同 Prefix Sum 的最早 Index 與目前右端點形成最長合法區間，使用 `try_emplace` 保留首次出現位置。
+- **Pitfall:** `firstIndex[0]=0` 不可漏；保留最早 Index 而非最後 Index；半開區間長度為 `r-l`，不要因不平衡就縮窗。
