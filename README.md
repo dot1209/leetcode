@@ -85,4 +85,7 @@
 ### [Topological Sort](patterns/topological-sort.md)
 依 directed dependencies 輸出合法順序；使用 indegree + Queue 或 DFS Postorder，並偵測 cycle。
 
+### [Union-Find](patterns/union-find.md)
+動態合併 Connected Components，透過 Root 維護 Component Size；Union by Size + Path Compression 將查找攤銷成本壓得接近常數。
+
 <!-- INDEX END -->
