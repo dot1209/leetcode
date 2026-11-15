@@ -4,7 +4,7 @@
 
 | 領域 | 已有練習證據 | 目前判定 | 下一個驗證方向 |
 |---|---|---|---|
-| Array / Hash / Prefix Sum | 525 有筆記；1590 進行中；437 有筆記 | 有覆蓋，獨立性待驗證 | 相同 Prefix 狀態在最短、最長、計數的不同題上決定 Map 的保存策略。 |
+| Array / Hash / Prefix Sum | 525、437 有筆記；1590 回報 AC | Guided AC（1590），獨立性待驗證 | 相同 Prefix 狀態在最短、最長、計數的不同題上決定 Map 的保存策略。 |
 | Sliding Window / Monotonic | 239、862 有筆記；907 曾需 Major Hint | Guided（907）；其他獨立性待驗證 | 不揭露 Pattern 的陌生 Stack／Deque 變形；驗證 Stack Invariant 與相同值歸屬。 |
 | Graph BFS / DFS | 133、1293、743、934 等已有練習 | 有覆蓋，獨立性待驗證 | Complete Transition：Discover → Mark/Create → Enqueue/Push → Process；陌生 Graph 變形。 |
 | Union-Find | 827 使用者提供 AC Code | Independent AC 證據（單題） | 在不同型態的連通性問題重新驗證 Root／Size Invariant。 |
@@ -25,6 +25,6 @@
 
 - **907：** Contribution Counting、Left Previous ≤／Right Next < 的相異比較規則、Stack 計算時機、Duplicate Tie-breaking。之後用不同題先測，再按 7 天規則考慮重訪 907。
 - **133 Clone Graph：** 曾漏掉新節點被 Discover 後的 Enqueue，屬於 Implementation Slip；不同 Graph Traversal 題需抽驗完整轉移鏈。
-- **1590：** Prefix Modulo 關係需區分求最短時的 Latest Index，與 525 求最長時的 Earliest Index。等待使用者 Code 後再定級。
+- **1590：** Prefix Modulo 關係需區分求最短時的 Latest Index，與 525 求最長時的 Earliest Index。用陌生變形驗證能否獨立推導同餘條件、選擇 Map 記錄策略，並正確處理空 Prefix、負餘數與區間長度限制。
 
 **覆蓋狀態更新規則：** 不只加題目數；每個領域累積獨立陌生變形才提高成熟度，並保留首次完成是否接受 Hint 的證據。

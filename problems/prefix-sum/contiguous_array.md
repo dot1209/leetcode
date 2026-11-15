@@ -105,3 +105,4 @@ public:
 - [[862] Shortest Subarray with Sum at Least K](../sliding-window/shortest_subarray_with_sum_at_least_k.md) — 同樣由區間 Sum 轉為 Prefix Sum 差，但要找最短且含負數，使用 Monotonic Deque 管理候選。
 - [[437] Path Sum III](../dfs/path_sum_iii.md) — 把樹上的 Downward Path Sum 化成 Prefix 差，Hash Map 記的是頻率，並須 Backtracking。
 - [560] Subarray Sum Equals K — 同樣是 Prefix Sum，但要求區間**個數**，所以 Map Value 是 Frequency 而非最早 Index。
+- [[1590] Make Sum Divisible by P](make_sum_divisible_by_p.md) — 固定右端點同樣比較 `R-L`，求最短時保留最新的 Prefix 餘數位置。

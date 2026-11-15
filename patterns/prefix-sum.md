@@ -36,13 +36,14 @@ for (int r = 1; r <= n; ++r) {
 固定右界 `r` 後，要問的是「哪個過去的 `l` 最有用」：
 
 - **最長長度：** 同一 Prefix Sum 只保留**最早 Index**。較晚、值相同的 Index 被支配，因為 `r-l` 一定更短。
+- **最短長度且查找固定 Prefix 狀態：** 同一狀態保留**最新 Index**，讓 `r-l` 最短。LC 1590 的狀態是 Prefix 餘數。
 - **數量：** 同一 Prefix Sum 需要累積**Frequency**，因為每次出現都可能對應不同合法起點。
 - **最短長度且有不等式：** 需要考慮候選 Index 的順序與 Prefix Sum 的大小關係，可用 Monotonic Deque 淘汰被支配的候選（LC 862）。
 
 ## Pitfalls
 - **半開區間 Off-by-one：** `prefix[r] - prefix[l]` 對應 `nums[l:r)`，長度是 `r-l`，不是 `r-l+1`。
 - **初始化 `prefix[0]=0`／`firstIndex[0]=0`：** 否則漏掉從 `nums[0]` 開始的答案。
-- **最早 Index 不可覆寫：** 用 `try_emplace` 或先檢查 `find`，不要用 `mp[prefix] = i` 一直覆寫。
+- **求最長時，最早 Index 不可覆寫：** 用 `try_emplace` 或先檢查 `find`，不要用 `mp[prefix] = i` 一直覆寫。
 - **避免 Overflow：** 任意整數的 Prefix Sum 用 `long long`；LC 525 只有 `±1` 且長度 ≤ 100000，`int` 足夠。
 - **連續不等於 Sliding Window：** 若不能證明移動左端點安全，不能只憑「Subarray」就強行縮窗。
 
@@ -55,3 +56,9 @@ for (int r = 1; r <= n; ++r) {
 - **Trigger:** 連續 0/1 Subarray 要求兩種數量相同，直接 Sliding Window 縮窗會漏掉未來重新平衡的區間。
 - **Insight:** 把 `0→-1`、`1→+1`，轉成 Sum = 0；相同 Prefix Sum 的最早 Index 與目前右端點形成最長合法區間，使用 `try_emplace` 保留首次出現位置。
 - **Pitfall:** `firstIndex[0]=0` 不可漏；保留最早 Index 而非最後 Index；半開區間長度為 `r-l`，不要因不平衡就縮窗。
+
+### [[1590] Make Sum Divisible by P](../problems/prefix-sum/make_sum_divisible_by_p.md)
+**Complexity:** Time O(n) expected, Space O(n)
+- **Trigger:** 移除最短連續區間，使剩餘總和可被 p 整除。
+- **Insight:** 用右 Prefix 餘數減目標餘數查左界，同一餘數保留最新位置。
+- **Pitfall:** 正規化負餘數，初始化空 Prefix，排除刪除整段。
