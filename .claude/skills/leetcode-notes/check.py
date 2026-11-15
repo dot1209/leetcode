@@ -108,7 +108,9 @@ def fix_punct(line):
         elif ch == ")" and stack:
             o = stack.pop()
             before = chars[o - 1] if o > 0 and not mask[o - 1] else None
-            call_like = before is not None and before.isascii() and (before.isalnum() or before in "_]>")
+            call_like = before is not None and (
+                (before.isascii() and (before.isalnum() or before in "_]>")) or before in "ΘΩ"  # Θ(n) / Ω(n)
+            )
             inner = any(is_cjk(chars[k]) for k in range(o + 1, i) if not mask[k])
             outer = is_cjk(sig(o, -1)) or is_cjk(sig(i, +1))
             if inner or (outer and not call_like):
