@@ -5,7 +5,7 @@
 | 領域 | 已有練習證據 | 目前判定 | 下一個驗證方向 |
 |---|---|---|---|
 | Array / Hash / Prefix Sum | 525、437 有筆記；1590 回報 AC | Guided AC（1590），獨立性待驗證 | 相同 Prefix 狀態在最短、最長、計數的不同題上決定 Map 的保存策略。 |
-| Sliding Window / Monotonic | 239、862 有筆記；907 曾需 Major Hint | Guided（907）；其他獨立性待驗證 | 不揭露 Pattern 的陌生 Stack／Deque 變形；驗證 Stack Invariant 與相同值歸屬。 |
+| Sliding Window / Monotonic | 239、862 有筆記；1493 二元版回報 AC；907 曾需 Major Hint | Guided（907）；其他獨立性待驗證 | 不揭露 Pattern 的陌生 Stack／Deque 變形；驗證 Stack Invariant 與相同值歸屬。另以 1493 任意整數版驗證頻率維護與縮窗條件。 |
 | Graph BFS / DFS | 133、1293、743、934 等已有練習 | 有覆蓋，獨立性待驗證 | Complete Transition：Discover → Mark/Create → Enqueue/Push → Process；陌生 Graph 變形。 |
 | Union-Find | 827 使用者提供 AC Code | Independent AC 證據（單題） | 在不同型態的連通性問題重新驗證 Root／Size Invariant。 |
 | Binary Search | 410 有完整筆記 | 變形不足 | 標準邊界、Answer Space 可行性證明與新題獨立實作。 |

@@ -134,3 +134,9 @@ LC 862 轉而維護 Prefix Sum：`prefix_sum[r]-prefix_sum[l] >= k`。Deque 保�
 - **Trigger:** 陣列含負數，要求 Sum ≥ k 的最短非空 Subarray，普通 Sliding Window 不再適用。
 - **Insight:** Prefix Sum + Monotonic Deque 存候選 Index；`pop_back` 依 Dominance，`pop_front` 依已結算的最早合法右界。
 - **Pitfall:** `pop_back` 用 `<=`、Prefix Sum 需 `n+1` 與初始 0、長度用 `r-l`，且 Prefix Sum 應是 `long long`。
+
+### [[1493] Longest Subarray of 1's After Deleting One Element](../problems/sliding-window/longest_subarray_of_1s_after_deleting_one_element.md)
+**Complexity:** Time O(n), Space O(1)
+- **Trigger:** 二元陣列中恰好刪除一格，求最長連續 1。
+- **Insight:** 視窗最多含一個 0，縮窗後以閉區間長度減一（`r - l`）更新答案。
+- **Pitfall:** 全 1 時仍須刪一格，答案為 `n - 1`。
