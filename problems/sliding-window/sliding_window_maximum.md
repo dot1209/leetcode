@@ -56,6 +56,6 @@ public:
 - **操作順序**：先後端淘汰 + push，再判斷視窗是否已滿、讀 max、前端過期。順序錯（例如還沒 push 就讀 front）會 off-by-one。
 
 ## Related Problems
-- [862] Shortest Subarray with Sum at Least K — 前綴和 + monotonic deque，同樣維護單調性並從兩端操作。
+- [[862] Shortest Subarray with Sum at Least K](shortest_subarray_with_sum_at_least_k.md) — 前綴和 + monotonic deque，同樣維護單調性並從兩端操作。
 - [1425] Constrained Subsequence Sum — DP 值套 monotonic deque 維護「視窗內最大 dp」。
 - [155] Min Stack — 同精神的「維護極值」結構，但只需單端（stack）。
