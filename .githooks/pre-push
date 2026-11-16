@@ -1,0 +1,16 @@
+#!/bin/sh
+# Lint the notes before every push; a non-zero exit aborts the push.
+# Enable once per clone: git config core.hooksPath .githooks
+# Bypass in an emergency:  git push --no-verify
+
+cd "$(git rev-parse --show-toplevel)" || exit 1
+
+for py in python3 python py; do
+    # skip missing interpreters and the Windows Store "python" stub
+    if "$py" -c "" >/dev/null 2>&1; then
+        exec "$py" .claude/skills/leetcode-notes/check.py
+    fi
+done
+
+echo "pre-push: no working Python found, cannot run check.py" >&2
+exit 1
